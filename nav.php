@@ -1,17 +1,17 @@
 	<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand visible-xs-block visible-sm-block" href="">Inicio</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav ">
-					<li class="active"><a href="listaAlumnos.php">Lista de Alumnos</a></li>
-					<li><a href="addAlumno.php">Agregar alumnos</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
+		<a class="navbar-brand" href="#">I.B.C</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item ">
+					<a class="nav-link" href="listaAlumnos.php">Listado</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="addAlumno.php"> + Agregar</a>
+				</li>
+			</ul>
+		</div>
 	</div>

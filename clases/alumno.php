@@ -64,9 +64,17 @@
 
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
-                $msg = '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
+                $msg = '<div class="alert alert-success alert-dismissible fade show" role="alert">  <strong>Exelente!</strong> Los datos fueron almacenados con exito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div';
             }else{
-                $msg = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+                $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">  <strong>Error!</strong> ocurrio un problema al almacenar los datos.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div';
             }
 
             $this->_connection->close();    

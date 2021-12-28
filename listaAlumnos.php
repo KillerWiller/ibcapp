@@ -24,8 +24,8 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<?php include('nav.php');?>
+	<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top ">
+		<?php include("nav.php");?>
 	</nav>
 	<div class="container">
 		<div class="content">
