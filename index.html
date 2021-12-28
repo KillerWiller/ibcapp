@@ -20,9 +20,10 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
 
-</body>
-</html>
 
 </head>
 <body>
@@ -45,7 +46,7 @@
                         <div class="row g-1">
                             <div class="form-floating col-sm-7">
                                 <input type="text" name="nombres" class="form-control" id="nombres" placeholder="Nombres" required>
-                                <label for="floatingPassword">Nombres</label>
+                                <label for="nombres">Nombres</label>
                             </div>
                         </div>    
                         </br>       
@@ -56,16 +57,26 @@
                             </div>
                             <div class="form-floating col-sm-5">
                                 <input type="text" name= "apeMat" class="form-control" id="apeMat" placeholder="Apellido Materno" required>
-                                <label for="floatingPassword">Apellido Materno</label>
+                                <label for="apePat">Apellido Materno</label>
                             </div>                            
-                        </div>                                      
+                        </div>  
+                        </br>     
+                        <div class="row g-2">
+                            <div class="form-floating col-sm-3">
+                                <label for="fecNac">Fecha de Nacimiento</label>
+                                <input type="date" id="fecNac" name="fecNac" class="form-control">
+                            </div>
+                        </div>                                                        
                     </div>
                 </form>
         </div>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
+    <script>
+        document.getElementById('fecNac').valueAsDate = new Date();
+    </script>
 
 	<script>
         $('.date').datepicker({
@@ -118,9 +129,7 @@
             // Si todo sale bien, eliminar errores (decretar que es válido)
             rut.setCustomValidity('');
         }
-
-
-        
+    
 	</script>
 </body>
 </html>    |
