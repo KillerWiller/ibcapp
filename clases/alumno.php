@@ -64,17 +64,17 @@
 
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
-                $msg = '<div class="alert alert-success alert-dismissible fade show" role="alert">  <strong>Exelente!</strong> Los datos fueron almacenados con exito.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div';
+                $msg = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <strong>Exelente!</strong> Los datos fueron guardados con exito.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
             }else{
-                $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">  <strong>Error!</strong> ocurrio un problema al almacenar los datos.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div';
+                $msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <strong>Error!</strong> ocurrio un error al guardar los datos.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
             }
 
             $this->_connection->close();    
