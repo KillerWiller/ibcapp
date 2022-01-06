@@ -14,7 +14,7 @@
 
     //METODOS
         public function cargaSelecetSedes(){
-            $qSQL = "SELECT * FROM Sedes ";
+            $qSQL = "SELECT * FROM Sedes ORDER BY Sde_Nombre ASC ";
             $result = $this->_connection->query($qSQL);
 
             if ($result->num_rows > 0) {

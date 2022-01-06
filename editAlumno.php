@@ -1,8 +1,8 @@
 <?php
     require_once("clases\alumno.php");
-    require_once("clases\Sede.php");
+    
     $alumno = new _Alumno();
-    $sede =  new _Sede();
+    
 
 ?>
 <!DOCTYPE html>
@@ -156,7 +156,7 @@
 						</div>
 					</div>                                                                                                                                                
 				</div>
-			</form
+			</form>
 		</div>
 	</div>
 

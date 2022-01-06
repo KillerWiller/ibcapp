@@ -15,7 +15,8 @@
             public $congregacion;
             public $anio;
             public $vigencia;
-            public $foto;
+            public $Curso;
+            public $Sede;
     
         public function __construct(){
             parent::__construct();
@@ -118,12 +119,19 @@
             }else{
                 $delete = mysqli_query($this->_connection, "DELETE FROM alumnos WHERE Alu_Id='$nik'");
                 if($delete){
-                    echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+					<strong>Eliminado!</strong> Los datos fueron eliminados con exito.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				  </div>';
                 }else{
-                    echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+					<strong>Error!</strong> ocurrio un error al eliminar los datos.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				  </div>';
                 }
             }  
-            $this->_connection->close();          
         }
 
         public function frut( $rut ) {
@@ -154,6 +162,7 @@
 
             $this->_connection->close();
             return $lista;
+            $this->_connection->close(); 
         }
 
         public function buscaAlumno($idAlumno){
@@ -164,6 +173,45 @@
             $this->_connection->close();
 
             return $alumno;
+        }
+
+        public function AJXalumnoCurso($search){
+            $sSQL = "SELECT Alu_Id,Alu_ApePaterno,Alu_ApeMaterno,Alu_Nombres FROM alumnos WHERE Alu_ApePaterno LIKE '%" .$search ."%' OR Alu_ApeMaterno LIKE '%" .$search ."%' OR Alu_Nombres LIKE '%" .$search ."%'";
+            $result = mysqli_query($this->_connection, $sSQL);
+
+            $output = "";
+            if(mysqli_num_rows($result) > 0){
+                $no = 1;
+                $output .= "
+                <div class='table-responsive'>
+                <table class='table table-striped table-hover'>
+                  <tr>
+                   <th></th>
+                   <th>Ap. Paterno</th>
+                   <th>Ap. Materno</th>
+                   <th>Nombres</th>
+                  </tr>";
+                  while($row = mysqli_fetch_array($result))
+                  {
+                   $output .= '
+                    <tr>
+                     <td> <a href="#" id="'.$row[0].'" onClick="reply_click(this.id)"><svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                   </svg></a></td>
+                     <td>'.$row[1].'</td>
+                     <td>'.$row[2].'</td>
+                     <td>'.$row[3].'</td>
+                    </tr>
+                   ';
+                  }
+                  $output .= '</table> </div>';
+                  echo $output;     
+            }
+            else
+            {
+                echo 'Data Not Found';
+            }
+            $this->_connection->close();
         }
     }
 ?>
