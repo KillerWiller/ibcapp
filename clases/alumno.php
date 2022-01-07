@@ -175,8 +175,9 @@
             return $alumno;
         }
 
-        public function AJXalumnoCurso($search){
-            $sSQL = "SELECT Alu_Id,Alu_ApePaterno,Alu_ApeMaterno,Alu_Nombres FROM alumnos WHERE Alu_ApePaterno LIKE '%" .$search ."%' OR Alu_ApeMaterno LIKE '%" .$search ."%' OR Alu_Nombres LIKE '%" .$search ."%'";
+        public function AJXbuscaAlumno($search){
+            $sSQL = "SELECT Alu_Id,Alu_ApePaterno,Alu_ApeMaterno,Alu_Nombres FROM alumnos WHERE  
+                    Alu_ApePaterno LIKE '%" .$search ."%' OR Alu_ApeMaterno LIKE '%" .$search ."%' OR Alu_Nombres LIKE '%" .$search ."%'";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output = "";
@@ -195,9 +196,12 @@
                   {
                    $output .= '
                     <tr>
-                     <td> <a href="#" id="'.$row[0].'" onClick="reply_click(this.id)"><svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                   </svg></a></td>
+                     <td>
+                     <button type="button" title="Agregar a curso" id="'.$row[0].'" onClick="agregaACurso(this.id)" class="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                     <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                     <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                     </svg> </button>
+                     </td>
                      <td>'.$row[1].'</td>
                      <td>'.$row[2].'</td>
                      <td>'.$row[3].'</td>
