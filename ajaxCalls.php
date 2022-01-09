@@ -1,6 +1,20 @@
 <?php
     
     $output= "";
+    if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="borraAlumnoCurso"){
+        if(isset($_POST["AJXIidAlumnoCurso"])&& isset($_POST["AJXSede"]) && isset($_POST["AJXCurso"]) && isset($_POST["AJXAnio"])){
+            require_once("clases\curso.php");
+            $curso = new _Curso();
+            $idAlumnoCurso = $_POST["AJXIidAlumnoCurso"];
+            $cursx = $_POST["AJXCurso"];
+            $sede = $_POST["AJXSede"];
+            $anio = $_POST["AJXAnio"];            
+            $resul = $curso->borraAlumnoCurso($idAlumnoCurso,$sede,$cursx,$anio);
+            unset($_POST['']);
+            echo $resul;
+        }
+    }
+
     if(isset($_POST["AJXfn"]) && isset($_POST["AJXalumno"]) && $_POST["AJXfn"]=="AJXbuscaAlumno"){
             require_once("clases\alumno.php");
             $alumno = new _Alumno();
