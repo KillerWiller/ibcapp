@@ -105,7 +105,7 @@
                                     </div>
                                 </div>                            
                             </div>
-                            <div class="table-responsive" id="result"></div>
+                            <div   style="position: absolute; left: 40px; top: 60px; z-index: 1;" id="result"></div>
                             <div  id="alerta"></div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h2>Lista del curso</h2>                            
-                                <div class="table-responsive" id="lista"></div>
+                                <div class="table-responsive" id="lista" style=" z-index: -1;"></div>
                         </div>
                     </div>
                 </div>

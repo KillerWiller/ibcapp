@@ -183,37 +183,21 @@
             $output = "";
             if(mysqli_num_rows($result) > 0){
                 $no = 1;
-                $output .= "
-                <div class='table-responsive'>
-                <table class='table table-striped table-hover'>
-                  <tr>
-                   <th></th>
-                   <th>Ap. Paterno</th>
-                   <th>Ap. Materno</th>
-                   <th>Nombres</th>
-                  </tr>";
+                $output .= "<ul  class='list-group'>";
                   while($row = mysqli_fetch_array($result))
                   {
-                   $output .= '
-                    <tr>
-                     <td>
-                     <button type="button" title="Agregar a curso" id="'.$row[0].'" onClick="agregaACurso(this.id)" class="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                     <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                     <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                     </svg> </button>
-                     </td>
-                     <td>'.$row[1].'</td>
-                     <td>'.$row[2].'</td>
-                     <td>'.$row[3].'</td>
-                    </tr>
-                   ';
+                   $output .= "<li class='list-group-item' id='".$row[0]."' onClick='agregaACurso(this.id)'> 
+                                <button type='button' title='Agregar a curso'   class='btn btn-light'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-person-plus-fill' viewBox='0 0 16 16'>
+                                <path d='M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>
+                                <path fill-rule='evenodd' d='M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z'/>
+                                </svg> </button>".$row[1] ." " .$row[2] . " " .$row[3] ."</li>";
                   }
-                  $output .= '</table> </div>';
+                  $output .= '</ul>';
                   echo $output;     
             }
             else
             {
-                echo 'Data Not Found';
+                echo 'No existen datos.';
             }
             $this->_connection->close();
         }
