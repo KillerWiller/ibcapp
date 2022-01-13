@@ -29,23 +29,15 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
     
-    <?php
-			/*if(isset($_GET['IdAdlumno']) != ''){
-
-			}*/
-			?>
-
 </head>
 <body>
     <nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
 		<?php include("nav.php");?>
 	</nav>
-    <div class="container">
-        <div class="main-body">
-            <h2>Crear Curso</h2>
-            </hr>
-            
-            <div class="col-md-8">
+    <div class="container ">
+        <div class="main-body ">
+        <h2 class= "display-6" >Cursos &raquo; Crear curso</h2> 
+            <div class="col-md-8 text-center">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
@@ -87,7 +79,7 @@
                     </div>
                 </div>
             </div>
-             <hr>    
+                 
              <p>Seleccione al alumno y agregelo al curso.</p>
              <div class="row gutters-sm">
                 <div class="col-md-8">
@@ -121,8 +113,6 @@
                 </div>
         </div>
     </div>
-
-
 </body>
 </html>
 

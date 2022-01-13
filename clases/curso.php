@@ -70,6 +70,7 @@
         }
 
         public function agregaAlumnoCurso($idAlumno,$sede,$IdCurso,$Anio){
+            $this->abreCnx();
             $sSQL = "SELECT AluCurId FROM alumno_curso WHERE Alu_Id = $idAlumno AND Cur_Id =$IdCurso AND Cur_Sede = $sede AND Anio = $Anio";
             $result = $this->_connection->query($sSQL);
             if ($result->num_rows == 0) {
@@ -86,11 +87,11 @@
             else{
                 $result = "";
             }
-
           return $result;
         }
 
         public function borraAlumnoCurso($idAlumnoCurso,$sede,$IdCurso,$Anio){
+            $this->abreCnx();
             $qSQL ="DELETE FROM alumno_curso WHERE AluCurId = $idAlumnoCurso";
             $delete = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($delete){
@@ -101,5 +102,55 @@
             }
           return $result;
         }        
+
+        public function cargaAnio(){
+            $this->abreCnx();
+            $qSQL = "SELECT Anio FROM alumno_curso GROUP BY Anio ORDER BY Anio DESC";
+            $result = $this->_connection->query($qSQL);
+
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_array($result)) {
+                    echo "<option value=" .$row["Anio"] .">". strtoupper($row["Anio"])."</option>";
+                }
+            } else {
+                echo "Sin resultados";
+            }
+            $this->_connection->close();
+        }                      
+        
+        public function listadoCursoSedeAnio($IdCurso,$idSede,$Anio){
+            $qSQL = "SELECT a.Alu_ApePaterno,a.Alu_ApeMaterno,a.Alu_Nombres, a.Alu_Email,Alu_Telefono 
+            FROM alumnos a INNER JOIN alumno_curso x ON a.Alu_Id = x.Alu_Id 
+            INNER JOIN cursos c ON c.Cur_Id = x.Cur_Id 
+            INNER JOIN sedes s ON s.Sde_Id = x.Cur_Sede 
+            WHERE x.Cur_Sede = '$idSede' 
+            AND x.Cur_Id = '$IdCurso' 
+            AND x.anio = '$Anio' ORDER BY a.Alu_ApePaterno ASC";
+
+            $result = $this->_connection->query($qSQL);
+            $tabla="";
+            if ($result->num_rows > 0) {
+                // output data of each row
+                $no=1;
+                $tabla ="";
+                while($row = mysqli_fetch_array($result)) {
+                $tabla .= "<tr> 
+                        <td>".$no ."</td>
+                        <td>".$row["Alu_ApePaterno"] ."</td>
+                        <td>".$row["Alu_ApeMaterno"] ."</td>
+                        <td>".$row["Alu_Nombres"] ."</td>
+                        <td>".$row["Alu_Email"] ."</td>
+                        <td>".$row["Alu_Telefono"] ."</td>
+                        </tr>  ";  
+                    $no++;
+                }
+            } else {
+                $tabla .= "Sin resultados";
+            }
+            $this->_connection->close();
+            return $tabla;
+        }
+
     }
 ?>

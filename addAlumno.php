@@ -15,7 +15,6 @@
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-datepicker.css" rel="stylesheet">
 	<link href="css/style_nav.css" rel="stylesheet">
 	<style>
 		.content {
@@ -27,6 +26,9 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
 
 </head>
 <body>
@@ -35,31 +37,30 @@
 	</nav>
 
 	<div class="container">
-		<div class="content">
-				<hr />
-				<h2>Alumnos &raquo; Agregar datos</h2>
-					<?php
-						if(isset($_POST['add'])){ // SI LE DA A GUARDAR
-							$datosAlumno = array();
-							$Rut = $alumno->frutAdd($_POST["rut"]);
-							$Nombres = $_POST["nombres"];
-							$apePat = $_POST["apePat"];
-							$apeMat = $_POST["apeMat"];
-							$fecNacimiento = date("Y/m/d", strtotime($_POST["fecNacimiento"]));;
-							$fono = $_POST["telefono"];
-							$email = $_POST["email"];
-							$direccion = $_POST["direccion"];
-							$comuna = $_POST["comuna"];
-							$congregacion = $_POST["congregacion"];
-							
-							array_push($datosAlumno,$Rut,$Nombres,$apePat,$apeMat,$fecNacimiento,$fono,$email,$direccion,$comuna,$congregacion); 
+		<div class="main-body ">
 
-							echo $alumno->guardaAlumno($datosAlumno);
-						}
-				?>
 				<form class="form" action="" method="post" onsubmit="return validar(event)" >
-                    <div class="card" style="width: 50rem;" >
-                        <h1 class= "display-4" >Alumnos &raquo; Agregar datos</h1> 
+                    <?php
+                            if(isset($_POST['add'])){ // SI LE DA A GUARDAR
+                                $datosAlumno = array();
+                                $Rut = $alumno->frutAdd($_POST["rut"]);
+                                $Nombres = $_POST["nombres"];
+                                $apePat = $_POST["apePat"];
+                                $apeMat = $_POST["apeMat"];
+                                $fecNacimiento = date("Y/m/d", strtotime($_POST["fecNacimiento"]));;
+                                $fono = $_POST["telefono"];
+                                $email = $_POST["email"];
+                                $direccion = $_POST["direccion"];
+                                $comuna = $_POST["comuna"];
+                                $congregacion = $_POST["congregacion"];
+                                
+                                array_push($datosAlumno,$Rut,$Nombres,$apePat,$apeMat,$fecNacimiento,$fono,$email,$direccion,$comuna,$congregacion); 
+
+                                echo $alumno->guardaAlumno($datosAlumno);
+                            }
+                    ?>
+                    <div class="card " style="width: 50rem; " >
+                        <h2 class= "display-6" >Alumnos &raquo; Agregar datos</h2> 
                         <hr />
                         <div class="row g-1">
                             <div class="form-floating col-sm-3">
@@ -135,7 +136,7 @@
                             </div>
                         </div>                                                                                                                                                
                     </div>
-                </form
+                </form>
 		</div>
 	</div>
     </br>
