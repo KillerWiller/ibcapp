@@ -6,23 +6,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lista de alumnos</title>
-
-	<!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style_nav.css" rel="stylesheet">
-	
-
-	<style>
-		.content {
-			margin-top: 80px;
-		}
-	</style>
-
+	<?php include("header.php");?>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top ">

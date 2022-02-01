@@ -23,6 +23,10 @@
         }
 
         //METODOS
+        public function cargaCSVAlumnos(){
+            return "OK";
+        }
+
 
         public function busca_credencial($ID_alumno){
             $qSQL = "SELECT m.meta_value as nombre,"; 

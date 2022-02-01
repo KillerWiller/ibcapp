@@ -17,6 +17,8 @@
 								<li><a class="dropdown-item" href="listaAlumnos.php">Listar</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="#">Credencial</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="importar.php">Importar</a></li>
 							</ul>
 						</li>
 						<li class="nav-item">
