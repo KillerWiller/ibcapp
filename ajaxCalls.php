@@ -2,7 +2,7 @@
     
     $output= "";
     if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="cargaCSVAlumnos"){
-        if ( isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"])){
+        if ( isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"]) && isset($_POST["AJXfile"])){
             require_once("clases\curso.php");
             $curso = new _Curso();
             require_once("clases\alumno.php");
