@@ -1,24 +1,6 @@
 <?php
     
     $output= "";
-    if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="cargaCSVAlumnos"){
-        if ( isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"]) && isset($_POST["AJXfile"])){
-            require_once("clases\curso.php");
-            $curso = new _Curso();
-            require_once("clases\alumno.php");
-            $alumno = new _Alumno();
-
-            $CSVfile = $_FILES['file']['name'];
-            $cursx = $_POST["AJXCurso"];
-            $sede = $_POST["AJXSede"];
-            $anio = $_POST["AJXAnio"];
-            
-            $resul = $CSVfile;//$alumno->cargaCSVAlumnos($cursx,$sede,$anio);
-            unset($_POST['']);
-            echo $resul;
-        }
-    }
-
     if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="listadoCursoSedeAnio"){
         if ( isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"])){
             require_once("clases\curso.php");

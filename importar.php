@@ -75,14 +75,6 @@
                         </div>
                     </form>
                 </div>
-            <div class="form-group" id="process" style="display:none;">
-                <input type="hidden" name="hidden_field" value="1" />
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                        <span id="process_data">0</span> - <span id="total_data">0</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
 </html>
@@ -91,9 +83,12 @@
  
 $(document).ready(function(){
 
-var clear_timer;
+    var clear_timer;
 
     $('#sample_form').on('submit', function(event){
+        var IdCurso = $('#curso').val();
+        var IdSede = $('#sede').val();
+        var anio = $('#anio').val(); 
         $('#message').html('');
         event.preventDefault();
         $.ajax({
@@ -106,24 +101,36 @@ var clear_timer;
             processData:false,
             beforeSend:function(){
                 $('#import').attr('disabled','disabled');
-                $('#import').val('Importing');
+                $('#import').val('Importando');
             },
-            success:function(data)
+             success:function(data)
             {
+               // var total_data = $('#total_data').text(data.total_line);
+
                 if(data.success)
                 {
-                    $('#total_data').text(data.total_line);
-                    $('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg><strong>Exelente!</strong> &nbsp; Archivo subido con exito.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+
+                    $('#file').val('');
+                    $('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Exelente!</strong>Archivo importado con exito<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                    $('#import').attr('disabled',false);
+                    $('#import').val('Importar');
                 }
                 if(data.error)
                 {
                     $('#message').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Error!</strong>' + data.error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                 }
                 $('#import').attr('disabled',false);
-                $('#import').val('Import');
+                $('#import').val('Importar');
             }
         })
     });
 
+    function sleep(milliseconds) {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < milliseconds);
+    }
 });
 </script>

@@ -1,9 +1,17 @@
 <?php
+header('Content-type: text/html; charset=utf-8');
+header("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+
+set_time_limit(0);
+ob_implicit_flush(1);
+session_start();
+
 if(isset($_POST['hidden_field']))
 {
     $error = '';
     $total_line = '';
-    session_start();
+  //  session_start();
     if($_FILES['file']['name'] != '')
     {
         $allowed_extension = array('csv');
@@ -12,10 +20,33 @@ if(isset($_POST['hidden_field']))
         if(in_array($extension, $allowed_extension))
         {
             $new_file_name = rand() . '.' . $extension;
-            $_SESSION['csv_file_name'] = $new_file_name;
             move_uploaded_file($_FILES['file']['tmp_name'], "uploads/$new_file_name");
             $file_content = file("uploads/$new_file_name", FILE_SKIP_EMPTY_LINES);
             $total_line = count($file_content);
+            $file_data = fopen('uploads/' . $new_file_name, 'r');
+            fgetcsv($file_data);
+
+            //DEVOLVER TOTAL LINEN PARA ANCHO DE BARRA
+            $output = array(
+                'success'  => true,
+                'total_line' => ($total_line - 1)
+            );
+
+            
+            while($row = fgetcsv($file_data)) //RECORRE EL ARCHIVO
+            {
+                //echo ($fila);                     
+                sleep(1);
+            //ACA RECORRER EL Archivo
+                //ACA INSERTAR CAMPOS A LA DB 
+                //DELVOVER JSON ncampo 
+                
+
+
+            }
+
+
+
         }
         else
         {
@@ -29,18 +60,19 @@ if(isset($_POST['hidden_field']))
 
     if($error != '')
     {
-        $output = array(
-        'error'  => $error
-        );
+     $output = array(
+      'error'  => $error
+     );
     } 
     else
     {
-        $output = array(
-        'success'  => true,
-        'total_line' => ($total_line - 1)
-        );
+     $output = array(
+      'success'  => true,
+      'total_line' => ($total_line - 1)
+     );
     }
-
+   
     echo json_encode($output);
+
 }
 ?>
