@@ -26,6 +26,24 @@
 
 
         }
+        public function abrir(){
+            if ($this->_connection -> connect_errno) {
+                exit();
+            }
+            else{
+                $this->abreCnx();
+            }
+        } 
+        
+        public function cerrar(){
+            if ($this->_connection -> connect_errno) {
+                exit();
+            }
+            else{
+                $this->_connection->close();
+            }
+
+        }
     }
 
 ?>

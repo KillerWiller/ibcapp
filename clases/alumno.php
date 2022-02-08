@@ -46,7 +46,8 @@
 
         public function guardaAlumno($datosAlumno){
             $qSQL = "INSERT INTO alumnos (Alu_rut, ";
-            $qSQL = $qSQL ."Alu_nombres, ";
+            $qSQL = $qSQL ."Alu_Don, ";
+            $qSQL = $qSQL ."Alu_Nombres, ";
             $qSQL = $qSQL ."Alu_ApePaterno, ";
             $qSQL = $qSQL ."Alu_ApeMaterno,";
             $qSQL = $qSQL ."Alu_FecNacimiento,";
@@ -56,17 +57,18 @@
             $qSQL = $qSQL ."Alu_Comuna ,";
             $qSQL = $qSQL ."Alu_Congregacion) ";
             $qSQL = $qSQL ." VALUES('";
-            $qSQL = $qSQL .$datosAlumno[0] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[1] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[2] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[3] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[4] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[5] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[6] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[7] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[8] ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[9] ."')";            
-
+            $qSQL = $qSQL .$datosAlumno[':rut'] ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':don']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':nombres']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':ape_pat']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':ape_mat']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':telefono']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':email']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':direccion']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':comuna']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':fnacimiento']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':congregacion']  ."')";            
+            $this->abrir();
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
                 $msg = '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -81,10 +83,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>';
             }
-
-            $this->_connection->close();    
+            $this->cerrar();
             return $msg;
-
         }
 
         public function editaAlumno($datosAlumno){

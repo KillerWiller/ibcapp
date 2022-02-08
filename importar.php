@@ -74,6 +74,12 @@
                             </br>                    
                         </div>
                     </form>
+                    <div id= "process" class="progress progress-striped active" style="display:none;">
+                        <div  class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                            <span id="process_data"></span> -------------------------------- <span id="total_data">0</span>
+                        </div>
+                    </div>
+
                 </div>
         </div>
     </body>
@@ -90,7 +96,9 @@ $(document).ready(function(){
         var IdSede = $('#sede').val();
         var anio = $('#anio').val(); 
         $('#message').html('');
-        event.preventDefault();
+
+ 
+        event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
         $.ajax({
             url:"uploadCSV.php",
             method:"POST",
@@ -102,14 +110,15 @@ $(document).ready(function(){
             beforeSend:function(){
                 $('#import').attr('disabled','disabled');
                 $('#import').val('Importando');
+                $('#process').css('display', 'block');
+                animar(30);
             },
              success:function(data)
             {
                // var total_data = $('#total_data').text(data.total_line);
-
-                if(data.success)
+                if(data.success) 
                 {
-
+                    animar(100);
                     $('#file').val('');
                     $('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Exelente!</strong>Archivo importado con exito<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                     $('#import').attr('disabled',false);
@@ -117,6 +126,7 @@ $(document).ready(function(){
                 }
                 if(data.error)
                 {
+                    $('#process').css('display', 'none');
                     $('#message').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Error!</strong>' + data.error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                 }
                 $('#import').attr('disabled',false);
@@ -131,6 +141,10 @@ $(document).ready(function(){
         do {
             currentDate = Date.now();
         } while (currentDate - date < milliseconds);
+    }
+
+    function animar(avance) {
+            $(".progress-bar").animate({width: avance + "%"}, 2500); 
     }
 });
 </script>

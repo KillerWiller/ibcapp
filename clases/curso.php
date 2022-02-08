@@ -70,7 +70,7 @@
         }
 
         public function agregaAlumnoCurso($idAlumno,$sede,$IdCurso,$Anio){
-            $this->abreCnx();
+            $this->abrir();
             $sSQL = "SELECT AluCurId FROM alumno_curso WHERE Alu_Id = $idAlumno AND Cur_Id =$IdCurso AND Cur_Sede = $sede AND Anio = $Anio";
             $result = $this->_connection->query($sSQL);
             if ($result->num_rows == 0) {
@@ -87,6 +87,7 @@
             else{
                 $result = "";
             }
+            $this->cerrar();
           return $result;
         }
 
@@ -152,5 +153,23 @@
             return $tabla;
         }
 
+        public function cargaDesdeCsv($rut,$curso,$sede,$anio){
+            $this->abrir();
+            $msg="";
+            $qSQL = "SELECT Alu_id FROM alumnos WHERE Alu_Rut = '" .$rut."'";
+            $result = $this->_connection->query($qSQL);
+            if ($result->num_rows > 0) {
+                while($row = mysqli_fetch_array($result)) {
+                    $qSQL2 ="INSERT INTO alumno_curso (Alu_Id,Cur_Sede,Cur_Id,Anio)
+                    VALUES (" . $row["Alu_id"]."," .$sede ."," .$curso ."," .$anio .")";
+                    $insert = mysqli_query($this->_connection,$qSQL2) or die(mysqli_error());
+                }
+            }
+            else{
+                $msg="Error al agregar cursos";
+            }
+            $this->cerrar();
+
+        }
     }
 ?>
