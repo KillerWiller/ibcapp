@@ -169,7 +169,7 @@
                 $msg="Error al agregar cursos";
             }
             $this->cerrar();
-
+            return $msg;
         }
     }
 ?>

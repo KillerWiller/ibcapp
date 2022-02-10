@@ -1,8 +1,8 @@
 <?php
 require_once("clases\curso.php");
-$curso =  new _Curso();
+
 require_once("clases\alumno.php");
-$alumno = new _Alumno();
+
 
 header('Content-type: text/html; charset=utf-8');
 header("Cache-Control: no-cache, must-revalidate");
@@ -43,6 +43,7 @@ if(isset($_POST['hidden_field']))
                 
                 while($row = fgetcsv($file_data)) //RECORRE EL ARCHIVO
                 {
+
                     $data = array(
                         ':rut' => $row[0],
                         ':don' => $row[1],                  
@@ -61,9 +62,18 @@ if(isset($_POST['hidden_field']))
                         
                     );
                     //GUARDA ALUMNO D
-                   echo ($alumno->guardaAlumno($data));
-
-                   if (strlen($curso->cargaDesdeCsv($data[':rut'],$data[':curso'],$data[':sede'],$data[':anio'])) > 0) {
+                    $alumno = new _Alumno();
+                    $msgAlu = $alumno->guardaAlumno($data);
+                    $curso =  new _Curso();
+                    $msgCurso = $curso->cargaDesdeCsv($data[':rut'],$data[':curso'],$data[':sede'],$data[':anio']);
+                    
+                    if (strlen($msgAlu) > 0) {
+                        $output = array(
+                            'error'  => 'Error al guardar los cursos'
+                            );
+                    }                     
+                 
+                   if (strlen($msgCurso) > 0) {
                         $output = array(
                             'error'  => 'Error al guardar los cursos'
                             );

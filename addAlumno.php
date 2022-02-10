@@ -22,21 +22,40 @@
 				<form class="form" action="" method="post" onsubmit="return validar(event)" >
                     <?php
                             if(isset($_POST['add'])){ // SI LE DA A GUARDAR
-                                $datosAlumno = array();
-                                $Rut = $alumno->frutAdd($_POST["rut"]);
-                                $Nombres = $_POST["nombres"];
-                                $apePat = $_POST["apePat"];
-                                $apeMat = $_POST["apeMat"];
-                                $fecNacimiento = date("Y/m/d", strtotime($_POST["fecNacimiento"]));;
-                                $fono = $_POST["telefono"];
-                                $email = $_POST["email"];
-                                $direccion = $_POST["direccion"];
-                                $comuna = $_POST["comuna"];
-                                $congregacion = $_POST["congregacion"];
-                                
-                                array_push($datosAlumno,$Rut,$Nombres,$apePat,$apeMat,$fecNacimiento,$fono,$email,$direccion,$comuna,$congregacion); 
+                                $datosAlumno = array(
+                                    ':rut' => $_POST["rut"],
+                                    ':don' => $_POST["sexo"],
+                                    ':nombres' => $_POST["nombres"],                  
+                                    ':ape_pat' => $_POST["apePat"],
+                                    ':ape_mat' => $_POST["apeMat"],
+                                    ':telefono' => $_POST["telefono"],
+                                    ':email' => $_POST["email"],
+                                    ':direccion' => $_POST["direccion"],
+                                    ':comuna' => $_POST["comuna"],
+                                    ':fnacimiento' => date("Y/m/d", strtotime($_POST["fecNacimiento"])),
+                                    ':congregacion' => $_POST["congregacion"]
+                               );  
 
-                                echo $alumno->guardaAlumno($datosAlumno);
+
+                                
+                                //array_push($datosAlumno,$Rut,$Nombres,$apePat,$apeMat,$fecNacimiento,$fono,$email,$direccion,$comuna,$congregacion); 
+
+                                if(strlen($alumno->guardaAlumno($datosAlumno))==0){
+                                    //ok
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <strong>Exelente!</strong> Los datos fueron guardados con exito.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                  </div>';
+                                }
+                                else{
+                                    //error
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                    <strong>Error!</strong> ocurrio un error al guardar los datos.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                  </div>';
+                                }
                             }
                     ?>
                     <div class="card " style="width: 50rem; " >
@@ -77,6 +96,16 @@
                             </div>
                         </div> 
                         </br>       
+                        <div class="row g-2">
+                            <label for="floatingPassword">Sexo</label>
+
+                            <div class="form-floating col-sm-5">
+                                    <input type="radio" class="form-check-input" id="sexoM" name="sexo" value="M" checked>  Masculino
+                                    &nbsp;&nbsp;
+                                    <input type="radio" class="form-check-input" id="sexoF" name="sexo" value="F">  Femenino
+                            </div>       
+                        </div>                 
+                        </br>                           
                         <div class="row g-2">
                             <div class="form-floating col-sm-5">
                                 <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Telefono" required>
