@@ -72,9 +72,10 @@
 			</table>
 			</div>
 		</div>
-	</div><center>
-	<p>&copy; Sistemas Web <?php echo date("Y");?></p
-		</center>
+	</div>
+	<center>
+		<p>&copy; IBC <?php echo date("Y");?></p
+	</center>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

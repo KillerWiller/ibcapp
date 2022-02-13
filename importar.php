@@ -66,20 +66,23 @@
                             </br>    
                             <div class="row g-6">
                                 <div class="col text-center">
+                                    <input type="button" name="validar" id="validar" class="btn btn-info btn-lg" value="Validar Archivo"> 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="hidden" name="hidden_field" value="1" />
-                                    <input type="submit" name="import" id="import" class="btn btn-primary btn-lg" value="Importar">
+                                    <input type="submit" name="import" id="import" class="btn btn-primary btn-lg" value="Importar" disabled>
                                     <a href="listaAlumnos.php" class="btn btn-secondary btn-lg">Cancelar</a>
                                 </div>
                             </div>    
                             </br>                    
                         </div>
+                        <div id= "process" class="progress progress-striped active" style="display:none;">
+                            <div  class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                <span id="process_data"></span> -------------------------------- <span id="total_data">0</span>
+                            </div>
+                        </div>                        
                     </form>
-                    <div id= "process" class="progress progress-striped active" style="display:none;">
-                        <div  class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                            <span id="process_data"></span> -------------------------------- <span id="total_data">0</span>
-                        </div>
-                    </div>
 
+                    <span id="errores"></span>
                 </div>
         </div>
     </body>
@@ -97,7 +100,6 @@ $(document).ready(function(){
         var anio = $('#anio').val(); 
         $('#message').html('');
 
- 
         event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
         $.ajax({
             url:"uploadCSV.php",
@@ -116,7 +118,8 @@ $(document).ready(function(){
              success:function(data)
             {
                // var total_data = $('#total_data').text(data.total_line);
-                if(data.success) 
+               console.log(data.success);
+               if(data.success) 
                 {
                     animar(100);
                     $('#file').val('');
@@ -131,8 +134,17 @@ $(document).ready(function(){
                 }
                 $('#import').attr('disabled',false);
                 $('#import').val('Importar');
-            }
+            },
+            error: function(data) {
+                    animar(60);
+                    $('#file').val('');
+                    $('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Exelente!</strong>Archivo importado con exito<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                    $('#import').attr('disabled',false);
+                    $('#import').val('Importar');                
+            },            
         })
+
+
     });
 
     function sleep(milliseconds) {
@@ -144,7 +156,88 @@ $(document).ready(function(){
     }
 
     function animar(avance) {
-            $(".progress-bar").animate({width: avance + "%"}, 2500); 
+            $(".progress-bar").animate({width: avance + "%"}, 500); 
+    }
+
+});
+
+
+
+$('#validar').on('click', function(event){
+    /*******************************
+     * SUBIR ARCHIVO
+     * RESCATAR NOMBRE
+     *******************************/
+
+    /*******************************
+     VALIDAR:
+        - x QUE EXISTA RCHIVO 
+        - QUE EL RUT SEA VALIDO (que exista y que sea correcto)
+        - QUE DON SEA F/M
+        - QUE EXISTA PRIMER NOMBRE 
+        - QUE EXISTA APELLIDO P
+        - QUE EXISTA APELLIDO 
+        - QUE EL RUT NO EXISTA
+    *******************************/
+    //CAMBIAR COLOR BOTON
+    // ACTIVAR BOTOS IMPORTAR
+    
+
+    event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
+    $( "#errores" ).html('');
+    sError='';
+    if( document.getElementById("file").files.length == 0 ){
+        sError = 'Debe seleccionar un archivo'; 
+    }
+    else{
+        fileExtension = $('#file').val().replace(/^.*\./, '');
+        if (fileExtension != 'csv' ){
+            sError = 'El archivo debe ser de tipo .CSV'; 
+        }
+        else
+        {
+                $.ajax({
+                url:"cargaCSValumnos.php",
+                method:"POST",
+                data: new FormData(document.getElementById("sample_form")), 
+                dataType:"json",
+                contentType:false,
+                cache:false,
+                processData:false,
+                beforeSend:function(datos){
+                    $('#validar').val('Validando');            
+                    $('#validar').attr('class', 'btn btn-warning btn-lg');
+                },
+                success:function(datos)
+                {
+                    console.log(datos.success);
+                    if(datos.success) 
+                    {
+                        $('#validar').val('Validado');            
+                        $('#validar').attr('class', 'btn btn-success btn-lg');
+                        $('#message').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg><strong>Exelente!</strong>&nbsp;&nbsp;Archivo validado correctamente.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                    }
+                    if(datos.error)
+                    {
+                        sError = datos.error;
+                        $('#validar').val('Validar Archivo');            
+                        $('#validar').attr('class', 'btn btn-info btn-lg');                        
+                        $( "#errores" ).html(sError);
+                    }
+
+                },
+                error: function(datos) {
+                        
+                },            
+            })
+        }
+    }
+
+    if (sError.length > 0){
+        $('#validar').val('Validar Archivo');            
+        $('#validar').attr('class', 'btn btn-info btn-lg');  
+        $('#message').html("<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg><strong>Atencion!</strong>&nbsp;&nbsp;" + sError + " <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>");
     }
 });
+
 </script>

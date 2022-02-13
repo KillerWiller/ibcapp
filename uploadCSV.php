@@ -69,7 +69,7 @@ if(isset($_POST['hidden_field']))
                     
                     if (strlen($msgAlu) > 0) {
                         $output = array(
-                            'error'  => 'Error al guardar los cursos'
+                            'error'  => 'Error al guardar los Alumnos'
                             );
                     }                     
                  
@@ -104,6 +104,8 @@ if(isset($_POST['hidden_field']))
       'total_line' => ($total_line - 1)
      );
     }
+    unset($_SESSION['csv_file_rows']);
+    unset($_SESSION['csv_file_name']);
     echo json_encode($output);
 
 }

@@ -138,7 +138,14 @@
             return str_replace(".","",str_replace("-","",$rut));
         }
 
-        public function urlFoto($url){
+        function cleanRut($rut) {
+            $string = str_replace(' ', '-', $rut); // Replaces all spaces with hyphens.
+         
+            return preg_replace('/[^A-Za-z0-9\-]/', '', $rut); // Removes special chars.
+         }
+
+        
+         public function urlFoto($url){
             if(is_null($url)){
                 $urlFoto = "http://ibc-cce.cl/wp/wp-content/uploads/2021/12/346e1df0044fd77dfb6f65cc086b2d5e1.jpg";   
              }
@@ -197,5 +204,16 @@
             }
             $this->_connection->close();
         }
+
+        public function buscaAlumnoRut($rut){
+
+            $sSQL = "SELECT * FROM alumnos WHERE Alu_Rut = '" .$this->cleanRut($rut) ."'";
+            $nik = mysqli_real_escape_string($this->_connection,(strip_tags($rut,ENT_QUOTES)));
+            $result = $this->_connection->query($sSQL);
+            $alumno = $result->fetch_all(MYSQLI_ASSOC);
+            $this->_connection->close();
+
+            return $alumno;
+        }        
     }
 ?>
