@@ -6,9 +6,14 @@
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style_nav.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 	<style>
 		.content {
 			margin-top: 80px;
+		}
+
+		body {
+			background-color: #E5E8E8;
 		}
 	</style>
 
@@ -20,3 +25,4 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	

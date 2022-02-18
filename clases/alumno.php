@@ -46,11 +46,11 @@
 
         public function guardaAlumno($datosAlumno){
             $qSQL = "INSERT INTO alumnos (Alu_rut, ";
-            $qSQL = $qSQL ."Alu_Don, ";
             $qSQL = $qSQL ."Alu_Nombres, ";
             $qSQL = $qSQL ."Alu_ApePaterno, ";
             $qSQL = $qSQL ."Alu_ApeMaterno,";
             $qSQL = $qSQL ."Alu_FecNacimiento,";
+            $qSQL = $qSQL ."Alu_Sexo, ";
             $qSQL = $qSQL ."Alu_telefono,";
             $qSQL = $qSQL ."Alu_Email,";
             $qSQL = $qSQL ."Alu_Direccion,";
@@ -58,22 +58,22 @@
             $qSQL = $qSQL ."Alu_Congregacion) ";
             $qSQL = $qSQL ." VALUES('";
             $qSQL = $qSQL .$this->frutAdd($datosAlumno[':rut']) ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':don']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':nombres']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':ape_pat']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':ape_mat']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':fnacimiento']  ."',";
+            $qSQL = $qSQL ."'".$datosAlumno[':sexo']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':telefono']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':email']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':direccion']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':comuna']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':fnacimiento']  ."',";
             $qSQL = $qSQL ."'".$datosAlumno[':congregacion']  ."')";            
             $this->abrir();
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
                 $msg = '';
             }else{
-                $msg = 'error';
+                $msg = 'Error al guardar profesor';
             }
             $this->cerrar();
             return $msg;
@@ -165,7 +165,6 @@
 
             $this->_connection->close();
             return $lista;
-            $this->_connection->close(); 
         }
 
         public function buscaAlumno($idAlumno){
@@ -215,5 +214,22 @@
 
             return $alumno;
         }        
+
+        public function buscaAlumnoRapida($search){
+            $sSQL = "SELECT a.Alu_Id,a.Alu_Rut ,CONCAT(a.Alu_ApePaterno,' ',a.Alu_ApeMaterno, ' ' ,a.Alu_Nombres) as nombre,a.Alu_Telefono,a.Alu_Email FROM alumnos a WHERE  
+                    a.Alu_ApePaterno LIKE '%" .$search ."%' OR a.Alu_ApeMaterno LIKE '%" .$search ."%' OR a.Alu_Nombres LIKE '%" .$search ."%'";
+            $result = mysqli_query($this->_connection, $sSQL);
+
+            $output[] = "";
+            if(mysqli_num_rows($result) > 0){
+                $output = array();
+                while($row = mysqli_fetch_assoc($result))
+                {
+                     $output[] = $row;
+                }
+            }
+            $this->_connection->close();   
+            return json_encode(['jAlumnos' => $output]);         
+        }
     }
 ?>

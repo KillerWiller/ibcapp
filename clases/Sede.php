@@ -1,7 +1,6 @@
 <?php 
     require_once("connect.php");
-
-    class _Sede extends _connect{
+    class _sede extends _connect{
             public $id;
             public $nombre;
             public $direccion;
@@ -14,9 +13,9 @@
 
     //METODOS
         public function cargaSelecetSedes(){
-            $qSQL = "SELECT * FROM Sedes ORDER BY Sde_Nombre ASC ";
+            $qSQL = "SELECT * FROM sedes ORDER BY Sde_Nombre ASC ";
             $result = $this->_connection->query($qSQL);
-
+            print_r($result);
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = mysqli_fetch_array($result)) {

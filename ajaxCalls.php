@@ -1,67 +1,31 @@
 <?php
-    
-    $output= "";
-    if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="listadoCursoSedeAnio"){
-        if ( isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"])){
-            require_once("clases\curso.php");
-            $curso = new _Curso();
-            $cursx = $_POST["AJXCurso"];
-            $sede = $_POST["AJXSede"];
-            $anio = $_POST["AJXAnio"];
-            $resul = $curso->listadoCursoSedeAnio($cursx,$sede,$anio);
+    if(isset($_POST["guardarProfesor"])){
+            if (is_file("clases\profesor.php")){
+                require_once("clases\profesor.php");
+            }
+            else {
+                require_once("./clases/curso.php");
+            }
+
+            $profesor = new _Profesor();
+            $profesor->Rut_Profesor = $_POST["rut"];
+            $profesor->Nombres_Profesor = $_POST["nombres"];
+            $profesor->ApePat_Profesor = $_POST["apepat"];
+            $profesor->ApeMat_Profesor = $_POST["apemat"];
+            $profesor->Telefono_Profesor = $_POST["telefono"];
+            $profesor->Email_Profesor = $_POST["email"];
+            $profesor->Direccion_Profesor = $_POST["direccion"];
+
+            $resul = $profesor->guardarProfesor();
             unset($_POST['']);
-            echo $resul;
-        }
+            if($resul){
+                $output = array('success'  => true);
+            }
+            else{
+                $output = array('error'  => true);
+            }
+            echo json_encode($output);
     }
 
-    if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="borraAlumnoCurso"){
-        if(isset($_POST["AJXIidAlumnoCurso"])&& isset($_POST["AJXSede"]) && isset($_POST["AJXCurso"]) && isset($_POST["AJXAnio"])){
-            require_once("clases\curso.php");
-            $curso = new _Curso();
-            $idAlumnoCurso = $_POST["AJXIidAlumnoCurso"];
-            $cursx = $_POST["AJXCurso"];
-            $sede = $_POST["AJXSede"];
-            $anio = $_POST["AJXAnio"];            
-            $resul = $curso->borraAlumnoCurso($idAlumnoCurso,$sede,$cursx,$anio);
-            unset($_POST['']);
-            echo $resul;
-        }
-    }
 
-    if(isset($_POST["AJXfn"]) && isset($_POST["AJXalumno"]) && $_POST["AJXfn"]=="AJXbuscaAlumno"){
-            require_once("clases\alumno.php");
-            $alumno = new _Alumno();
-            $search = $_POST["AJXalumno"];
-            $resul = $alumno->AJXbuscaAlumno($search);
-            unset($_POST['']);
-            echo $resul;
-    }
-
-    if(isset($_POST["AJXfn"]) && $_POST["AJXfn"]=="listaAlumnosCurso"){
-        if(isset($_POST["AJXCurso"]) && isset($_POST["AJXSede"]) && isset($_POST["AJXAnio"])){
-            require_once("clases\curso.php");
-            $curso = new _Curso();
-        
-            $cursx = $_POST["AJXCurso"];
-            $sede = $_POST["AJXSede"];
-            $anio = $_POST["AJXAnio"];
-            $resul = $curso->listaAlumnosCurso($sede,$cursx,$anio);
-            unset($_POST['']);
-            echo $resul;
-        }    
-    }
-
-    if(isset($_POST["AJXfn"])  && $_POST["AJXfn"]=="agregaAlumnoCurso"){
-        if (isset($_POST["AJXIdAlumno"])  && isset($_POST["AJXSede"]) && isset($_POST["AJXCurso"]) && isset($_POST["AJXAnio"])){
-            require_once("clases\curso.php");
-            $curso = new _Curso();
-            $alumno = $_POST["AJXIdAlumno"];
-            $cursx = $_POST["AJXCurso"];
-            $sede = $_POST["AJXSede"];
-            $anio = $_POST["AJXAnio"];
-            $resul = $curso->agregaAlumnoCurso($alumno,$sede,$cursx,$anio);
-            unset($_POST['']);
-            echo $resul;
-        }
-    }
 ?>

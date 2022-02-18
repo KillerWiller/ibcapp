@@ -1,110 +1,82 @@
 <?php 
-    require_once("clases\curso.php");
+
+	if (is_file("clases\curso.php")){
+		require_once("clases\curso.php");
+	}
+	else {
+		require_once("./clases/curso.php");
+	}
+
+	if (is_file("clases\sede.php")){
+		require_once("clases\sede.php");
+	}
+	else {
+		require_once("./clases/sede.php");
+	}
+    
     $curso =  new _Curso();
-    require_once("clases\Sede.php");
-    $sede =  new _Sede();
+    $sede =  new _sede();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<?php include("header.php");?>
+	<link type="text/css" rel="stylesheet" href="css/formStyles.css" />
 </head>
     <body>
-      <nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-      <?php include("nav.php");?>
-      </nav>
-
-	  	<div class="container justify-content-center">
-			<div class="main-body">
-				<h2 class= "display-6" >Alumnos &raquo; Listado</h2> 
-				<div class="col-md-8 d-flex align-items-center ">
-					<div class="card mb-3">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-5">
-									<h6 class="mb-0">Curso</h6>
-									<select id="curso" class="form-control" name="curso" aria-invalid="false" width="60">
-										<?php $curso->cargaCursos(); ?>
-									</select>
+		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
+		<?php include("nav.php");?>
+		</nav>
+   
+		<div id="booking" class="section">
+			<div class="section-center">
+				<div class="container" style="">
+					<div class="row">
+						<div class="booking-form">
+								<div class="form-header">
+									<h1>agregar profesores</h1>
 								</div>
-								<div class="col-sm-5">
-									<h6 class="mb-0">Sede</h6>
-									<select id="sede" class="form-control" name="sede" aria-invalid="false" width="60">
-									<?php $sede->cargaSelecetSedes(); ?>
-									</select>
-								</div>	
-								
-								<div class="col-sm-2">
-									<h6 class="mb-0">Año</h6>
-									<select id="anio" class="form-control" name="anio" aria-invalid="false" width="60">
-										<?php $curso->cargaAnio(); ?>
-									</select>
-								</div>									
-							</div>
-	</br>
-							<div class="row">
-								<div class="col-sm-12 text-rigth">
-									<input type="submit" id="mostrarLista" name="cargar" class="btn btn-primary btn-sm" value="Ver lista">
+							<form>
+								<div class="row">	
+									<div class="col-sm-6">
+										<div class="form-group form-floating">
+											<input type="text" name="rut" class="form-control" id="rut" placeholder="Sin puntos y con -" required>
+											<label for="floatingPassword">RUT</label>
+										</div>
+									</div>	
+									<div class="col-sm-7">
+										<div class="form-group form-floating">
+											<input type="text" name="nombres" class="form-control" id="nombres" placeholder="Nombres" required>
+											<label for="floatingPassword">Nombres</label>
+										</div>
+									</div>			
+												
+									<div class="col-sm-6">
+										<div class="form-group form-floating">
+											<input type="text" name="apepat" class="form-control" id="apepat" placeholder="Apellido Paterno" required>
+											<label for="floatingPassword">Apellido Paterno</label>
+										</div>
+									</div>	
+									
+									<div class="col-sm-6">
+										<div class="form-group form-floating">
+											<input type="text" name="apemat" class="form-control" id="apemat" placeholder="Apellido Materno" required>
+											<label for="floatingPassword">Apellido Materno</label>
+										</div>
+									</div>
 								</div>
-							</div>							
+								<div class="row g-2">
+									<div class="col text-center">
+										<input type="submit" name="add" class="btn btn-primary btn-lg" value="Guardar">
+										<a href="listaAlumnos.php" class="btn btn-secondary btn-lg">Cancelar</a>
+									</div>
+								</div> 								
+							</form>
 						</div>
 					</div>
-				</div>
-	</br>
-				
+				</div>		
 			</div>
-    	</div>	  
-		<div class="container align-items-center ">	
-					<div class="table-responsive">
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Apellido Paterno</th>
-									<th>Apellido Materno</th>
-									<th>Nombres</th>
-									<th>Email</th>
-									<th>Teléfono</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody id="lista">
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
+		</div>
+
     </body>
 </html>
-
-<script>
-	$(document).ready(function(){ 
-		function load_lista(IdCurso,IdSede,Anio)
-        {
-			$.ajax({
-					url:"ajaxCalls.php",
-					method:"POST",
-					data:{AJXfn:"listadoCursoSedeAnio",AJXCurso:IdCurso,AJXSede:IdSede,AJXAnio:Anio},
-					success:function(data)
-					{
-						$('#lista').html(data);
-					}
-				});
-		}
-		$("#mostrarLista").click(function() {
-            var curso = $('#curso').val();
-            var sede = $('#sede').val();
-            var anio = $('#anio').val();
-            spin = '<div class="text-center"><div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div></div';
-            $('#lista').html(spin);            
-            if(anio != '' && curso != '' && sede != '')
-            {
-                load_lista(curso,sede,anio);
-            }
-            else
-            {
-                load_lista();
-            }  
-		});
-	});
-</script>
