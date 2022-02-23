@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-lg">
 	<a class="navbar-brand" href="#">I.B.C</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -29,8 +29,10 @@
 								Tablas
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="addAlumno.php">Profesores</a></li>
+								<li><a class="dropdown-item" href="profesorLista.php">Alumnos</a></li>
+								<li><a class="dropdown-item" href="profesorLista.php">Profesores</a></li>
 							</ul>
+								
 						</li>						
 					</ul>
 				</div>

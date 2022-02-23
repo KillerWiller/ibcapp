@@ -13,7 +13,6 @@
 <html lang="es">
 <head>
 	<?php include("header.php");?>
-	<link type="text/css" rel="stylesheet" href="css/formStyles.css" />
 </head>
     <body>
 		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
@@ -70,7 +69,7 @@
 
 								<div class="col-sm-10">
 									<div class="form-group form-floating">
-										<input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" required>
+										<input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" >
 										<label for="floatingPassword">Teléfono</label>
 									</div>
 								</div>	
@@ -83,7 +82,7 @@
 								</div>		
 								<div class="col-sm-12">
 									<div class="form-group form-floating">
-										<input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección" required>
+										<input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección" >
 										<label for="floatingPassword">Dirección</label>
 									</div>
 								</div>															
@@ -91,7 +90,7 @@
 								<div class="row g-2">
 									<div class="col text-center">
 										<span id='state'><input type="submit" name="add" class="btn btn-primary btn-lg" value="Guardar"></span>
-										<a href="listaAlumnos.php" class="btn btn-secondary btn-lg">Volver</a>
+										<a href="profesorLista.php" class="btn btn-secondary btn-lg">Volver</a>
 									</div>
 								</div> 								
 							</form>

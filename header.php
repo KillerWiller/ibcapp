@@ -6,7 +6,10 @@
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style_nav.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/formStyles.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+	
 	<style>
 		.content {
 			margin-top: 80px;
@@ -24,5 +27,6 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	

@@ -3,20 +3,17 @@
 
     class _Alumno extends _connect{
             public $id;
-            public $nombres;
-            public $apellidos;
-            public $rut;
-            public $email;
-            public $telefono;
-            public $direccion;
-            public $comuna;
-            public $region;
-            public $fnacimiento;
-            public $congregacion;
-            public $anio;
-            public $vigencia;
-            public $Curso;
-            public $Sede;
+            public $Rut_Alumno;
+            public $Nombres_Alumno;
+            public $ApePat_Alumno;
+            public $ApeMat_Alumno;
+            public $Telefono_Alumno;
+            public $Email_Alumno;
+            public $Direccion_Alumno;
+            public $FecNacimiento_Alumno;
+            public $Sexo_Alumno;
+            public $Congregacion_Alumno;
+  
     
         public function __construct(){
             parent::__construct();
@@ -44,36 +41,34 @@
         }
 
 
-        public function guardaAlumno($datosAlumno){
-            $qSQL = "INSERT INTO alumnos (Alu_rut, ";
-            $qSQL = $qSQL ."Alu_Nombres, ";
-            $qSQL = $qSQL ."Alu_ApePaterno, ";
-            $qSQL = $qSQL ."Alu_ApeMaterno,";
-            $qSQL = $qSQL ."Alu_FecNacimiento,";
-            $qSQL = $qSQL ."Alu_Sexo, ";
-            $qSQL = $qSQL ."Alu_telefono,";
-            $qSQL = $qSQL ."Alu_Email,";
-            $qSQL = $qSQL ."Alu_Direccion,";
-            $qSQL = $qSQL ."Alu_Comuna ,";
-            $qSQL = $qSQL ."Alu_Congregacion) ";
+        public function guardaAlumno(){
+            $qSQL = "INSERT INTO alumnos (Rut_Alumno, ";
+            $qSQL = $qSQL ."Nombres_Alumno, ";
+            $qSQL = $qSQL ."ApePat_Alumno, ";
+            $qSQL = $qSQL ."ApeMat_Alumno,";
+            $qSQL = $qSQL ."Telefono_Alumno, ";
+            $qSQL = $qSQL ."Email_Alumno,";
+            $qSQL = $qSQL ."Direccion_Alumno,";
+            $qSQL = $qSQL ."FecNacimiento_Alumno,";
+            $qSQL = $qSQL ."Sexo_Alumno ,";
+            $qSQL = $qSQL ."Congregacion_Alumno) ";
             $qSQL = $qSQL ." VALUES('";
-            $qSQL = $qSQL .$this->frutAdd($datosAlumno[':rut']) ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':nombres']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':ape_pat']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':ape_mat']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':fnacimiento']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':sexo']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':telefono']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':email']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':direccion']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':comuna']  ."',";
-            $qSQL = $qSQL ."'".$datosAlumno[':congregacion']  ."')";            
+            $qSQL = $qSQL .$this->frutAdd($this->Rut_Alumno) ."',";
+            $qSQL = $qSQL ."'". $this->Nombres_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->ApePat_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->ApeMat_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->Telefono_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->Email_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->Direccion_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->FecNacimiento_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->Sexo_Alumno  ."',";
+            $qSQL = $qSQL ."'". $this->Congregacion_Alumno  ."')";            
             $this->abrir();
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
                 $msg = '';
             }else{
-                $msg = 'Error al guardar profesor';
+                $msg = 'error';
             }
             $this->cerrar();
             return $msg;
