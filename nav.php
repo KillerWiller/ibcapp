@@ -29,8 +29,9 @@
 								Tablas
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="profesorLista.php">Alumnos</a></li>
+								<li><a class="dropdown-item" href="alumnoLista.php">Alumnos</a></li>
 								<li><a class="dropdown-item" href="profesorLista.php">Profesores</a></li>
+								<li><a class="dropdown-item" href="sedeLista.php">Sedes</a></li>
 							</ul>
 								
 						</li>						

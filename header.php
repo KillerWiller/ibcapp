@@ -7,6 +7,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style_nav.css" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="css/formStyles.css" />
+	<link type="text/css" rel="stylesheet" href="css/Style.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
 	

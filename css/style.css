@@ -1,0 +1,27 @@
+.table-sortable th {
+    cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+    content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+    content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+    margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+    background: #85929E  ;/*rgba(0, 0, 0, 0.1);*/
+    color: #FCF3CF ;
+}
+
+.tabla-filtro{
+    background: #F2F4F4;
+    border: #808B96 solid 0.5px;
+}

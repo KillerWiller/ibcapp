@@ -8,6 +8,7 @@
 	}
 
     $alumno=  new _Alumno();
+    $RSalumno= json_decode($alumno->buscaAlumno($_GET["nik"]));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,43 +26,36 @@
 					<div class="row">
 						<div class="booking-form">
 								<div class="form-header">
-									<h2>agregar alumno</h2>
+									<h2>editar alumno</h2>
 								</div>
 							<span id="message"></span>
 							<form id="alumnoForm" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<div class="row">	
 									<div class="col-sm-6">
-										<input type="hidden" name="guardarAlumno" id="guardarAlumno" value='1'>
+										<input type="hidden" name="editarAlumno" id="editarAlumno" value='<?php echo $RSalumno->jAlumnos[0]->Id_Alumno ?>'>
 										<div class="form-group form-floating">
-											<input type="text" name="rut" id="rut" class="form-control" pattern="[0-9]{7,8}-[0-9kK]{1}" id="rut" placeholder="RUT" oninput="checkRut(this)" required>
+											<input type="text" name="rut" id="rut" class="form-control" pattern="[0-9]{7,8}-[0-9kK]{1}" id="rut" placeholder="RUT" oninput="checkRut(this)" value='<?php echo $alumno->frut($RSalumno->jAlumnos[0]->Rut_Alumno); ?>' disabled required>
 											<label for="floatingPassword">RUT</label>
-											
 										</div>
 									</div>	
 
-									<div class="col-sm-6">
-										<div class="form-group form-floating">
-											<label for="rut" style="color:#C0C0C0 ">ej: 123456789</label>
-										</div>
-									</div>
-
 									<div class="col-sm-7">
 										<div class="form-group form-floating">
-											<input type="text" name="nombres" class="form-control" id="nombres" placeholder="Nombres" required>
+											<input type="text" name="nombres" class="form-control" id="nombres" placeholder="Nombres" value='<?php echo $RSalumno->jAlumnos[0]->Nombres_Alumno; ?>' required>
 											<label for="floatingPassword">Nombres</label>
 										</div>
 									</div>			
 												
 									<div class="col-sm-6">
 										<div class="form-group form-floating">
-											<input type="text" name="apepat" class="form-control" id="apepat" placeholder="Apellido Paterno" required>
+											<input type="text" name="apepat" class="form-control" id="apepat" placeholder="Apellido Paterno" value='<?php echo $RSalumno->jAlumnos[0]->ApePat_Alumno; ?>' required>
 											<label for="floatingPassword">Apellido Paterno</label>
 										</div>
 									</div>	
 									
 									<div class="col-sm-6">
 										<div class="form-group form-floating">
-											<input type="text" name="apemat" class="form-control" id="apemat" placeholder="Apellido Materno" required>
+											<input type="text" name="apemat" class="form-control" id="apemat" placeholder="Apellido Materno" value='<?php echo $RSalumno->jAlumnos[0]->ApeMat_Alumno; ?>' required>
 											<label for="floatingPassword">Apellido Materno</label>
 										</div>
 									</div>
@@ -69,27 +63,27 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group form-floating">
-											<input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" >
+											<input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" value='<?php echo $RSalumno->jAlumnos[0]->Telefono_Alumno; ?>'>
 											<label for="floatingPassword">Teléfono</label>
 										</div>
 									</div>	
 									
 									<div class="col-sm-6">
 										<div class="form-group form-floating">
-											<input type="email" name="email" class="form-control" id="email" placeholder="Email" >
+											<input type="email" name="email" class="form-control" id="email" placeholder="Email" value='<?php echo $RSalumno->jAlumnos[0]->Email_Alumno; ?>'>
 											<label for="floatingPassword">Email</label>
 										</div>
 									</div>
 								</div>		
 								<div class="col-sm-12">
 									<div class="form-group form-floating">
-										<input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección" >
+										<input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección" value='<?php echo $RSalumno->jAlumnos[0]->Direccion_Alumno; ?>' >
 										<label for="floatingPassword">Dirección</label>
 									</div>
 								</div>															
 								<div class="col-sm-5">
 									<div class="form-group form-floating">
-									<input type="date" id="fecNacimiento" name="fecNacimiento" class="form-control" placeholder="Fecha de Nacimiento" >
+									<input type="date" id="fecNacimiento" name="fecNacimiento" class="form-control" placeholder="Fecha de Nacimiento" value='<?php echo $RSalumno->jAlumnos[0]->FecNacimiento_Alumno; ?>'>
 										<label for="floatingPassword">Fecha de Nacimiento</label>
 									</div>
 								</div>	
@@ -97,18 +91,18 @@
 									<label for="sexo" style="color:#C0C0C0 ">Sexo</label>
 									<div class="col-sm-4">
 										<div class="form-group form-floating radio-label">
-											<input type="radio" class="form-check-input"  id="sexoM" name="sexo" value="M" checked>&nbsp; Masculino
+											<input type="radio" class="form-check-input"  id="sexoM" name="sexo" value="M" <?php echo ($RSalumno->jAlumnos[0]->Sexo_Alumno == 'M') ? 'checked' : ''; ?>>&nbsp; Masculino
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group form-floating radio-label">
-											<input type="radio" class="form-check-input" id="sexoF" name="sexo" value="F" >&nbsp; Femenino
+											<input type="radio" class="form-check-input" id="sexoF" name="sexo" value="F" <?php echo ($RSalumno->jAlumnos[0]->Sexo_Alumno == 'F') ? 'checked' : ''; ?> >&nbsp; Femenino
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group form-floating">
-										<input type="text" name="congregacion" class="form-control" id="congregacion" placeholder="Congregación" >
+										<input type="text" name="congregacion" class="form-control" id="congregacion" placeholder="Congregación" value='<?php echo $RSalumno->jAlumnos[0]->Congregacion_Alumno; ?>' >
 										<label for="floatingPassword">Congregación</label>
 									</div>
 								</div>

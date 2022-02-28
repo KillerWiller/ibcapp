@@ -1,16 +1,15 @@
 <?php 
 
-	if (is_file("clases\curso.php")){
+	if (is_file("clases\profesor.php")){
 		require_once("clases\profesor.php");
 	}
 	else {
 		require_once("./clases/profesor.php");
 	}
 
-    $profesor=  new _profesor();
+    $profesor=  new _Profesor();
 
     $RSprofesor = json_decode($profesor->buscaProfesor($_GET["nik"]));
-    //$alumno->frut($stand->Alu_Rut)
 
 ?>
 <!DOCTYPE html>

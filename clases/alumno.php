@@ -2,7 +2,7 @@
     require_once("connect.php");
 
     class _Alumno extends _connect{
-            public $id;
+            public $Id_Alumno;
             public $Rut_Alumno;
             public $Nombres_Alumno;
             public $ApePat_Alumno;
@@ -20,6 +20,25 @@
         }
 
         //METODOS
+
+        public function listaAlumnos(){
+            $this->abrir();
+            $sSQL = "SELECT * FROM alumnos WHERE Estado_Alumno = 1";
+            $result = mysqli_query($this->_connection, $sSQL);
+
+            $output[] = "";
+            if(mysqli_num_rows($result) > 0){
+                $output = array();
+                while($row = mysqli_fetch_assoc($result))
+                {
+                     $output[] = $row;
+                }
+            }
+            $this->cerrar();
+            return json_encode(['jAlumnos' => $output]); 
+        }
+
+
         public function cargaCSVAlumnos(){
             return "OK";
         }
@@ -74,21 +93,21 @@
             return $msg;
         }
 
-        public function editaAlumno($datosAlumno){
+        public function editaAlumno(){
             $qSQL = "UPDATE alumnos SET  ";
-            $qSQL = $qSQL ."Alu_nombres = '". $datosAlumno[1]  ."', ";
-            $qSQL = $qSQL ."Alu_ApePaterno = '".$datosAlumno[2] ."',";
-            $qSQL = $qSQL ."Alu_ApeMaterno = '".$datosAlumno[3] ."',";
-            $qSQL = $qSQL ."Alu_FecNacimiento = '".$datosAlumno[4] ."',";
-            $qSQL = $qSQL ."Alu_telefono = '".$datosAlumno[5] ."',";
-            $qSQL = $qSQL ."Alu_Email = '".$datosAlumno[6] ."',";
-            $qSQL = $qSQL ."Alu_Direccion = '".$datosAlumno[7] ."',";
-            $qSQL = $qSQL ."Alu_Comuna = '".$datosAlumno[8] ."',";
-            $qSQL = $qSQL ."Alu_Congregacion = '".$datosAlumno[9] ."'";  
-            $qSQL = $qSQL ." WHERE alumnos.Alu_Id = " .$datosAlumno[0]  ;
+            $qSQL = $qSQL ."Nombres_Alumno = '". $this->Nombres_Alumno  ."', ";
+            $qSQL = $qSQL ."ApePat_Alumno = '". $this->ApePat_Alumno ."',";
+            $qSQL = $qSQL ."ApeMat_Alumno = '". $this->ApeMat_Alumno ."',";
+            $qSQL = $qSQL ."Telefono_Alumno = '". $this->Telefono_Alumno ."',";
+            $qSQL = $qSQL ."Email_Alumno = '". $this->Email_Alumno ."',";
+            $qSQL = $qSQL ."Direccion_Alumno = '". $this->Direccion_Alumno ."',";
+            $qSQL = $qSQL ."FecNacimiento_Alumno = '". $this->FecNacimiento_Alumno ."',";
+            $qSQL = $qSQL ."Sexo_Alumno = '". $this->Sexo_Alumno ."',";
+            $qSQL = $qSQL ."Congregacion_Alumno = '". $this->Congregacion_Alumno ."'";  
+            $qSQL = $qSQL ." WHERE Id_Alumno = " . $this->Id_Alumno;
 
       
-
+            $this->abrir();
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
             if($insert){
                 $oper = 1;
@@ -96,33 +115,22 @@
                  $oper = 0;
             }
 
-            $this->_connection->close();    
+            $this->cerrar();   
             return $oper;
 
         }        
 
         public function borraAlumno($IdAlumno){
+            $this->abrir();
             $nik = mysqli_real_escape_string($this->_connection,(strip_tags($IdAlumno,ENT_QUOTES)));            
-
-            $cek = mysqli_query($this->_connection, "SELECT * FROM alumnos WHERE Alu_Id='$nik'");
-            if(mysqli_num_rows($cek) == 0){
-                echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+            $delete = mysqli_query($this->_connection, "UPDATE  alumnos SET Estado_Alumno = 0 WHERE Id_Alumno ='$nik'");
+            if($delete){
+                $msg = '';
             }else{
-                $delete = mysqli_query($this->_connection, "DELETE FROM alumnos WHERE Alu_Id='$nik'");
-                if($delete){
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-					<strong>Eliminado!</strong> Los datos fueron eliminados con exito.
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				  </div>';
-                }else{
-                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-					<strong>Error!</strong> ocurrio un error al eliminar los datos.
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				  </div>';
-                }
-            }  
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
         }
 
         public function frut( $rut ) {
@@ -163,13 +171,20 @@
         }
 
         public function buscaAlumno($idAlumno){
-            $sSQL = "SELECT * FROM alumnos WHERE Alu_Id = " .$idAlumno;
-            $nik = mysqli_real_escape_string($this->_connection,(strip_tags($_GET["nik"],ENT_QUOTES)));
-            $result = $this->_connection->query($sSQL);
-            $alumno = $result->fetch_all(MYSQLI_ASSOC);
-            $this->_connection->close();
+            $this->abrir();
+            $sSQL = "SELECT * FROM alumnos WHERE Id_Alumno = " .$idAlumno;
+            $result = mysqli_query($this->_connection, $sSQL);
 
-            return $alumno;
+            $output[] = "";
+            if(mysqli_num_rows($result) > 0){
+                $output = array();
+                while($row = mysqli_fetch_assoc($result))
+                {
+                     $output[] = $row;
+                }
+            }
+            $this->cerrar();
+            return json_encode(['jAlumnos' => $output]); 
         }
 
         public function AJXbuscaAlumno($search){
