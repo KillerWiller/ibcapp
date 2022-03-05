@@ -1,31 +1,30 @@
 <?php 
     require_once("connect.php");
 
-    class _Curso extends _connect{
-        public $idCurso;
-        public $nombreCurso;
+    class _Materia extends _connect{
+        public $Id_Materia;
+        public $Nombre_Materia;
         
         public function __construct(){
             parent::__construct();
         }
 
-    //METODOS
-        public function cargaCursos(){
-            $qSQL = "SELECT * FROM cursos ";
+        //METODOS
+        public function cargaMaterias(){
+            $qSQL = "SELECT * FROM materias ";
             $result = $this->_connection->query($qSQL);
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $cursos = array();
+                $materias = array();
                 while($row = mysqli_fetch_array($result)) {
-                    $cursos [] = $row;
+                    $materias [] = $row;
                 }
             } else {
                 echo "Sin resultados";
             }
             $this->_connection->close();
-            return json_encode(['JCursos' => $cursos]);
-        }          
-
+            return json_encode(['JMaterias' => $materias]);
+        }  
     }
 ?>

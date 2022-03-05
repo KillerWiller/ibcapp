@@ -50,7 +50,7 @@
 
         public function listaProfesores(){
             $this->abrir();
-            $sSQL = "SELECT * FROM profesor WHERE Estado_Profesor = 1";
+            $sSQL = "SELECT * FROM profesor WHERE Estado_Profesor = 1 ORDER BY Nombres_Profesor, ApePAt_Profesor";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";
@@ -62,7 +62,7 @@
                 }
             }
             $this->cerrar();
-            return json_encode(['jProfesores' => $output]);  
+            return json_encode(['JProfesores' => $output]);  
         }
 
         public function frutAdd($rut){
