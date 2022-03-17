@@ -1,6 +1,32 @@
 <?php
 
 
+    if(isset($_POST["crearClase"])){
+        if (is_file("clases\clase.php")){
+            require_once("clases\clase.php");
+        }
+        else {
+            require_once("./clases/clase.php");
+        }
+
+        $clase = new _Clase();
+        $clase->Id_Materia = $_POST["materia"];
+        $clase->Id_Profesor = $_POST["profesor"];
+        $clase->Id_Sede = $_POST["sede"];
+        $clase->Id_Curso = $_POST["curso"];
+        $clase->Anio_Clase = $_POST["anio"];
+
+        $resul = $clase->guardarClase();
+        unset($_POST['']);
+        if(strlen($resul)==0){
+            $output = array('success'  => true);
+        }
+        else{
+            $output = array('error'  => true);
+        }
+        echo json_encode($output);
+    }
+
     if(isset($_POST["guardarSede"])){
         if (is_file("clases\sede.php")){
             require_once("clases\sede.php");
@@ -170,8 +196,6 @@
         echo json_encode($output);        
     }
 
-
-
     if(isset($_POST["cargaComunasxRegion"])){
         if (is_file("clases\sede.php")){
             require_once("clases\sede.php");
@@ -185,5 +209,59 @@
         echo $sede->cargaComunasXRegiones($_POST['region']);
         unset($_POST['']);
     }    
+
+    if(isset($_POST['listaClases'])){
+        if (is_file("clases\clases.php")){
+            require_once("clases\clases.php");
+        }
+        else {
+            require_once("./clases/clases.php");
+        }
+
+        $clase = new _Clase();
+        $clase->Anio_Clase = $_POST["anio"];
+        $clase->Id_Materia = $_POST["materia"];
+        $clase->Id_Profesor = $_POST["profesor"];
+        $clase->Id_Sede = $_POST["sede"];
+        $clase->Id_Curso = $_POST["curso"];
+        $resul = $alumno->buscarClases();
+        unset($_POST['']);
+
+        $data =  json_decode($resul);
+        $no=1;
+        $r = count($data->jAlumnos);
+            if (count($data->jAlumnos)>1) {
+                // Open the table
+                echo "<table  class='table table-striped table-hover' id='tablaBusca'>
+                <tr>
+                <th>#</th>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                </tr>"  ;
+        
+                // Cycle through the array
+
+                foreach ($data->jAlumnos as $idx => $stand) {
+        
+                    // Output a row
+                    echo "<tr>";
+                    echo "<td>$no</td>";
+                    echo'<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg><a href="profile.php?nik='.$stand->Alu_Id.'">'. $alumno->frut($stand->Alu_Rut).'</a></td>';
+                    echo "<td>$stand->nombre</td>";
+                    echo "<td>$stand->Alu_Telefono</td>";
+                    echo "<td>$stand->Alu_Email</td>";
+                    echo "</tr>";
+                    $no++;
+                }
+        
+                // Close the table
+                echo "</table>";
+            } 
+    }        
+
 
 ?>

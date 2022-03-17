@@ -12,5 +12,58 @@
         public function __construct(){
             parent::__construct();
         }
+
+        public function guardarClase(){
+            $qSQL = "INSERT INTO clases ( ";
+            $qSQL = $qSQL ."Id_Materia, ";
+            $qSQL = $qSQL ."Id_Profesor, ";
+            $qSQL = $qSQL ."Id_Sede, ";
+            $qSQL = $qSQL ."Id_Curso, ";
+            $qSQL = $qSQL ."Anio_Clase) ";
+            $qSQL = $qSQL ." VALUES(";
+            $qSQL = $qSQL . $this->Id_Materia  .",";
+            $qSQL = $qSQL . $this->Id_Profesor  .",";
+            $qSQL = $qSQL . $this->Id_Sede  .",";
+            $qSQL = $qSQL . $this->Id_Curso  .",";
+            $qSQL = $qSQL . $this->Anio_Clase  .")";            
+            $this->abrir();
+            $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
+            if($insert){
+                $msg = '';
+            }else{
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
+        }
+
+        function cargaAnios(){
+
+        }
+
+
+        function buscarClases(){
+            $sWHERE = "Anio_Clase = " .$this->Anio_Clase . " AND " ;
+
+            if($this->Id_Curso  > 0){
+                $sWHERE .= "Id_Curso =" .$this->Id_Curso;
+            }elseif($this->Id_Materia > 0){
+                $sWHERE .= "Id_Materia =" .$this->Id_Materia;
+            }elseif($this->Id_Sede > 0){
+                $sWHERE .= "Id_Sede =" .$this->Id_Sede;
+            }elseif($this->Id_Profesor > 0){
+                $sWHERE .= "Id_Profesor =" .$this->Id_Profesor;
+            }elseif($this->Id_Sede > 0){
+                $sWHERE .= "Id_Sede =" .$this->Id_Sede;
+            }
+
+
+            $qSQL =" SELECT c.Anio_Clase, u.Nombre_Curso,m.Nombre_Materia, s.Nombre_Sede,(p.Nombres_Profesor + ' ' + p.ApePat_Profesor) as Nombre_Profesor
+                FROM clases c INNER JOIN cursos u on c.Id_Curso = u.Id_Curso 
+                    INNER JOIN materias m ON c.Id_Materia = m.Id_Materia 
+                    INNER JOIN sedes s ON c.Id_Sede = s.Id_Sede INNER JOIN profesor p ON c.Id_Profesor = p.Id_Profesor";
+            $qSQL .= $qSQL .$sWHERE . " 1 = 1";
+        }
+
     }
 ?>

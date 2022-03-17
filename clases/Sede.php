@@ -126,7 +126,7 @@
                 }
             }
             $this->cerrar();
-            return json_encode(['jSedes' => $output]);             
+            return json_encode(['JSedes' => $output]);             
         }
 
         public function buscaSede($IdSede){

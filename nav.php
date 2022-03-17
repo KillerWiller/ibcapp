@@ -21,13 +21,15 @@
 								<li><a class="dropdown-item" href="importar.php">Importar</a></li>
 							</ul>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" aria-current="page" href="addClass.php">Cursos</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" aria-current="false" href="#" data-bs-toggle="dropdown">Cursos</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="clases.Crear.php">Crear</a></li>
+								<li><a class="dropdown-item" href="#">Listar</a></li>
+							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Tablas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tablas</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="alumnoLista.php">Alumnos</a></li>
 								<li><a class="dropdown-item" href="profesorLista.php">Profesores</a></li>

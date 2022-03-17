@@ -116,12 +116,112 @@
 											?>
 											</select>
 										</div>									
+								</div>	
+								
+								<div class="col-sm-10">
+									<div class="form-group form-floating">
+											<select id="sede" name="sede" class="form-control">
+											<option value="0">Sede</option>
+											<?php 	$data =  json_decode($sede->listaSedes());
+													$r = count($data->JSedes);
+													if (count($data->JSedes)>1) {
+														foreach ($data->JSedes as $idx => $stand) {
+															// Output a row
+															echo "<option value='$stand->Id_Sede'>" .$stand->Nombre_Sede ."</option>";
+														}
+													} 										 
+											?>
+											</select>
+										</div>									
 								</div>								
 							</div>
+							<div class="row g-2">
+								<div class="col text-center">
+									<span id="spin"></span>
+									<span id='state'><input type="submit" id="agregar" class="btn btn-primary btn-lg" value="Crear Clase" onClick="validar();"></span>
+									<a href="alumnoLista.php" class="btn btn-secondary btn-lg">Volver</a>
+								</div>
+							</div>
 						</form>
+
+
 					</div>
 				</div>		
 			</div>
 		</div>
     </body>
 </html>
+
+<script>
+	$(document).ready(function(){
+		event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
+		$('#claseForm').on('submit', 
+            function(event){
+           // spin = '<div class="text-center"><div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div></div>';
+           // $('#spin').html(spin);
+			$.ajax(
+			{
+				url:"AJAXCalls.php",
+				method:"POST",
+				data: new FormData(document.getElementById("claseForm")), 
+				dataType:"json",
+				contentType:false,
+				cache:false,
+				processData:false,
+				beforeSend:function(datos){
+					$('#message').css('display','block')
+					$('#state').html("");
+					spin = '<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div>';
+					$('#state').html(spin);
+				},
+				success:function(datos)
+				{
+					var msg = "";
+
+					if(datos.success) 
+					{
+						msg = "<div class='alert alert-succsess alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Exelente!</strong> Datos almacenados con exito.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+						$("#sedesForm")[0].reset();
+					}
+					if(datos.error)
+					{
+							msg ="<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong> Ocurrio un error al guardar los datos.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+					}
+					$('#state').html("<input type='submit' name='add' class='btn btn-primary btn-lg' value='Guardar'>");
+					$('#message').html(msg);
+				},
+
+				error: function(datos) {
+					$('#message').html("<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong> Ocurrio un error desconocido al guardar los datos.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>");
+				},  
+			});
+
+        });
+	});
+
+	function validar() {
+		var curso = document.getElementById("curso");
+		var materia = document.getElementById("materia");
+		var profesor = document.getElementById("profesor");
+		var sede = document.getElementById("sede");
+		curso.setCustomValidity('');
+		materia.setCustomValidity('');
+		profesor.setCustomValidity('');
+		sede.setCustomValidity('');
+		if(curso.value<1){
+			curso.setCustomValidity('Seleccione un periodo');
+		}
+		if(materia.value<1){
+			materia.setCustomValidity('Seleccione una materia');
+		}		
+
+		if(profesor.value<1){
+			profesor.setCustomValidity('Seleccione un profesor');
+		}	
+
+		if(sede.value<1){
+			sede.setCustomValidity('Seleccione una sede');
+		}
+		
+	}
+</script>
