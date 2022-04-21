@@ -65,9 +65,9 @@
                         <tbody>
                             <?php 
                                 $data = json_decode($sede->listaSedes());
-                                if (count($data->jSedes)>0){
+                                if (count($data->JSedes)>0){
                                     $n=1;
-                                    foreach ($data->jSedes as $idx => $rs) {
+                                    foreach ($data->JSedes as $idx => $rs) {
                                         // Output a row
                                         echo "<tr class='table-light   table-hover'>";
                                             echo "<td >$n</td>";

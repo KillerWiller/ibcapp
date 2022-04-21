@@ -22,10 +22,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" aria-current="false" href="#" data-bs-toggle="dropdown">Cursos</a>
+							<a class="nav-link dropdown-toggle" aria-current="false" href="#" data-bs-toggle="dropdown">Clases</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="clases.Crear.php">Crear</a></li>
-								<li><a class="dropdown-item" href="#">Listar</a></li>
+								<li><a class="dropdown-item" href="#">Buscar</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">

@@ -65,7 +65,7 @@
                         <tbody>
                             <?php 
                                 $data = json_decode($alumno->listaAlumnos());
-                                if (count($data->jAlumnos)>0){
+                                if (count($data->jAlumnos)>2){
                                     $n=1;
                                     foreach ($data->jAlumnos as $idx => $rs) {
                                         // Output a row

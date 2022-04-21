@@ -109,8 +109,7 @@
 </html>
 
 
-<script>
-    $(document).ready(function(){
+
         
         $('#profesorForm').on('submit', 
             function(event){

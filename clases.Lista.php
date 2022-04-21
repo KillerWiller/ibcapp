@@ -32,7 +32,7 @@
 		require_once("clases\clase.php");
 	}
 	else {
-		require_once("./clases/clase.php");
+		require_once("./clases/clase.php"); 
 	}
 
     $curso =  new _Curso();
@@ -62,20 +62,14 @@
                             <form id="claseForm" method="POST" enctype="multipart/form-data" autocomplete="off">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <input type="hidden" name="crearClase" id="crearClase" value='1'>
-                                        <select id="curso" name="curso" class="form-control">
-                                            <option value="0">Periodo</option>
-                                            <?php 	$data =  json_decode($clase->cargaAnios());
-                                                    $r = count($data->JAnios);
-                                                    if (count($data->JAnios)>1) {
-                                                        foreach ($data->JAnios as $idx => $stand) {
-                                                            // Output a row
-                                                            echo "<option value='$stand->Anio_Clase'>$stand->Anio_Clase</option>";
-                                                        }
-                                                    } 										 
-                                            ?>
+                                        <div class="form-group form-floating">
+                                            <input type="hidden" name="listarClase" id="listarClase" value='1'>
+                                            <select id="anio" name="anio" class="form-control">
+                                                <?php json_decode($clase->cargaAnios());?>
                                             </select>
-                                    </div>								
+                                        </div>
+                                    </div>			
+
                                     <div class="col-sm-6">
                                         <div class="form-group form-floating">
                                             <select id="curso" name="curso" class="form-control">
@@ -92,8 +86,59 @@
                                             </select>
                                         </div>
                                     </div>
-                            </form>
 
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-floating">
+                                            <select id="materia" name="materia" class="form-control">
+                                            <option value="0">Contenido</option>
+                                                <?php 	$data =  json_decode($materia->cargaMaterias());
+                                                        $r = count($data->JMaterias);
+                                                        if (count($data->JMaterias)>1) {
+                                                            foreach ($data->JMaterias as $idx => $stand) {
+                                                                // Output a row
+                                                                echo "<option value='$stand->Id_Materia'>$stand->Nombre_Materia</option>";
+                                                            }
+                                                        } 										 
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    
+                                    
+                                    <div class="col-sm-6">
+									    <div class="form-group form-floating">
+											<select id="profesor" name="profesor" class="form-control">
+											<option value="0">Profesor</option>
+											<?php 	$data =  json_decode($profesor->listaProfesores());
+													$r = count($data->JProfesores);
+													if (count($data->JProfesores)>1) {
+														foreach ($data->JProfesores as $idx => $stand) {
+															// Output a row
+															echo "<option value='$stand->Id_Profesor'>" .$stand->Nombres_Profesor ." " .$stand->ApePat_Profesor ." " .$stand->ApeMat_Profesor ."</option>";
+														}
+													} 										 
+											?>
+											</select>
+										</div>									
+								    </div>	
+                                    
+                                    <div class="col-sm-10">
+                                        <div class="form-group form-floating">
+                                                <select id="sede" name="sede" class="form-control">
+                                                <option value="0">Sede</option>
+                                                <?php 	$data =  json_decode($sede->listaSedes());
+                                                        $r = count($data->JSedes);
+                                                        if (count($data->JSedes)>1) {
+                                                            foreach ($data->JSedes as $idx => $stand) {
+                                                                // Output a row
+                                                                echo "<option value='$stand->Id_Sede'>" .$stand->Nombre_Sede ."</option>";
+                                                            }
+                                                        } 										 
+                                                ?>
+                                                </select>
+                                        </div>									
+								    </div>                                    
+                            </form>
 
                         </div>
                     </div>		

@@ -84,7 +84,7 @@
 
         public function cargaRegiones(){
             $this->abrir();
-            $qSQL = "SELECT Numero_Region,Nombre_Region FROM region ORDER BY Numero_Region, Nombre_Region ASC ";
+            $qSQL = "SELECT Numero_Region,Nombre_Region FROM regiones ORDER BY Numero_Region, Nombre_Region ASC ";
             $result = $this->_connection->query($qSQL);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -99,7 +99,7 @@
 
         public function cargaComunasXRegiones($numero_region){
             $this->abrir();
-            $qSQL = "SELECT Id_Comuna,Nombre_Comuna FROM comunas WHERE Numero_Region = $numero_region ORDER BY Nombre_Comuna ASC ";
+            $qSQL = "SELECT Id_Comuna,Nombre_Comuna FROM comunas WHERE 	Region_Comuna = $numero_region ORDER BY Nombre_Comuna ASC ";
             $result = $this->_connection->query($qSQL);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -114,7 +114,7 @@
         
         public function listaSedes(){
             $this->abrir();
-            $sSQL = "SELECT s.Id_Sede,s.Nombre_Sede,s.Direccion_Sede,c.Nombre_comuna as Comuna_Sede FROM sedes s INNER JOIN comunas c ON c.Id_Comuna = s.Comuna_Sede WHERE Estado_sede = 1";
+            $sSQL = "SELECT s.Id_Sede,s.Nombre_Sede,s.Direccion_Sede,c.Nombre_Comuna as Comuna_Sede FROM sedes s INNER JOIN comunas c ON c.Id_Comuna = s.Comuna_Sede WHERE Estado_Sede = 1";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";
@@ -131,7 +131,7 @@
 
         public function buscaSede($IdSede){
             $this->abrir();
-            $sSQL = "SELECT s.Id_Sede,s.Nombre_Sede, s.Direccion_Sede,s.Comuna_Sede, c.Nombre_Comuna,s.Region_Sede ,r.Nombre_Region FROM sedes s INNER JOIN comunas c ON s.Comuna_Sede = c.Id_Comuna INNER JOIN region r ON s.Region_Sede = r.Numero_region WHERE s.Id_Sede = $IdSede";
+            $sSQL = "SELECT s.Id_Sede,s.Nombre_Sede, s.Direccion_Sede,s.Comuna_Sede, c.Nombre_Comuna,s.Region_Sede ,r.Nombre_Region FROM sedes s INNER JOIN comunas c ON s.Comuna_Sede = c.Id_Comuna INNER JOIN regiones r ON s.Region_Sede = r.Numero_region WHERE s.Id_Sede = $IdSede";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";

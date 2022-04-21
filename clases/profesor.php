@@ -22,7 +22,7 @@
         }
 
         public function guardarProfesor(){
-            $qSQL = "INSERT INTO profesor (Rut_Profesor, ";
+            $qSQL = "INSERT INTO profesores (Rut_Profesor, ";
             $qSQL = $qSQL ."Nombres_Profesor, ";
             $qSQL = $qSQL ."ApePat_Profesor, ";
             $qSQL = $qSQL ."ApeMat_Profesor, ";
@@ -50,7 +50,7 @@
 
         public function listaProfesores(){
             $this->abrir();
-            $sSQL = "SELECT * FROM profesor WHERE Estado_Profesor = 1 ORDER BY Nombres_Profesor, ApePAt_Profesor";
+            $sSQL = "SELECT * FROM profesores WHERE Estado_Profesor = 1 ORDER BY Nombres_Profesor, ApePat_Profesor";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";
@@ -72,7 +72,7 @@
         public function borraProfesor($IdProfesor) {
             $this->abrir();
             $nik = mysqli_real_escape_string($this->_connection,(strip_tags($IdProfesor,ENT_QUOTES)));            
-            $delete = mysqli_query($this->_connection, "UPDATE  profesor SET Estado_profesor = 0 WHERE Id_Profesor ='$nik'");
+            $delete = mysqli_query($this->_connection, "UPDATE  profesores SET Estado_Profesor = 0 WHERE Id_Profesor ='$nik'");
             if($delete){
                 $msg = '';
             }else{

@@ -38,7 +38,19 @@
         }
 
         function cargaAnios(){
-
+            $qSQL = "SELECT Anio_Clase FROM clases GROUP BY Anio_Clase ORDER BY Anio_Clase  DESC";
+            $this->abrir();
+            $result = $this->_connection->query($qSQL);
+            print_r($result);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_array($result)) {
+                  echo "<option value=" .$row["Anio_Clase"] .">". $row["Anio_Clase"]."</option>";
+                 }
+              } else {
+                echo "Sin resultados";
+              }
+              $this->cerrar();
         }
 
 
