@@ -25,7 +25,7 @@
 							<a class="nav-link dropdown-toggle" aria-current="false" href="#" data-bs-toggle="dropdown">Clases</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="clases.Crear.php">Crear</a></li>
-								<li><a class="dropdown-item" href="#">Buscar</a></li>
+								<li><a class="dropdown-item" href="clases.lista.php">Listado / Busqueda</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
