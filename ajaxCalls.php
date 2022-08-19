@@ -1,8 +1,53 @@
 <?php
 
     if(isset($_POST["filtrarClases"])){
-       $anio = isset($_POST["anio"]);
-       $sede = isset($_POST["sede"]);
+     $anio  = $_POST["anio"];
+     $periodo  = $_POST["periodo"];
+     $materia  = $_POST["materia"];
+     $sede  = $_POST["sede"];
+        if (is_file("clases\clases.php")){
+            require_once("clases\clases.php");
+        }
+        else {
+            require_once("./clases/clases.php");
+        }
+
+        $clase = new _Clase();
+        $clase->Anio_Clase = $anio;
+        $sWHERE = " AND c.Anio_Clase = $clase->Anio_Clase " ;
+
+
+        if($materia >0){$sWHERE .= "  AND c.Id_Materia = " .$_POST["materia"];}
+        if($sede >0){$sWHERE .= "  AND c.Id_Sede = " .$_POST["sede"];}
+        if($periodo >0){$sWHERE .= "  AND c.Id_Periodo = " .$_POST["periodo"];}
+
+        unset($_POST['']);
+
+        $filtro ="";
+        $data  = json_decode($clase->listaClases($sWHERE));
+        if (count($data->JClases)>0){
+                $n=1;
+                foreach ($data->JClases as $idx => $rs) {
+                    // Output a row
+                    $filtro .= "<tr class='table-light   table-hover'>";
+                    $filtro .= "<td >$n</td>";
+                    $filtro .= "<td>" .$rs->Anio_Clase  ." </td>";
+                    $filtro .= "<td>$rs->Sede</td>";
+                    $filtro .= "<td>$rs->Nombre_Periodo</td>";
+                    $filtro .= "<td>$rs->Nombre_Materia</td>";
+                    $filtro .= "<td>$rs->Profesor</td>";
+                    $filtro .='<td><a href="SedeEdita.php?nik='.$rs->Id_Clase.'" title="Editar datos" class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg></a></td>';
+                    $filtro .='<td><a href="SedeLista.php?aksi=delete&nik='.$rs->Id_Clase.'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de '.$rs->Id_Clase .'?\')" class="btn btn-danger btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                    </svg></a></td>';
+                    $filtro .= "</tr>";
+                    $n++;
+                }
+            }
+            echo $filtro;
 
     }
 

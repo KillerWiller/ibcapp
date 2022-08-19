@@ -73,9 +73,9 @@
               $this->cerrar();
         }
 
-        function listaClases() {
-            $sWHERE = " WHERE 1 = 1 ";
-            if($this->Id_Sede >0){$sWHERE = " AND Id_Sede = '". $this->Id_Sede ."'";}
+        function listaClases($cWHERE) {
+            $sWHERE = " WHERE 1 = 1 " .$cWHERE;
+           // if($this->Id_Sede >0){$sWHERE = " AND Id_Sede = '". $this->Id_Sede ."'";}
             $sSQL = "SELECT c.Id_Clase, c.Anio_Clase, m.Nombre_Materia,p.Nombre_Periodo, s.sede, CONCAT(t.Nombres_Profesor ,' ', t.ApePat_Profesor) as Profesor "; 
             $sSQL = $sSQL . "FROM clases c  LEFT JOIN  vw_sedes s ON c.Id_Sede = s.Id_Sede LEFT JOIN materias m ON c.Id_Materia = m.Id_Materia LEFT JOIN periodos p ON c.Id_Periodo = p.Id_Periodo LEFT JOIN profesores t ON c.Id_Profesor = t.Id_Profesor  ";
             $sSQL = $sSQL . $sWHERE;
