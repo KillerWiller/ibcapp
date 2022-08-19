@@ -1,5 +1,10 @@
 <?php
 
+    if(isset($_POST["filtrarClases"])){
+       $anio = isset($_POST["anio"]);
+       $sede = isset($_POST["sede"]);
+
+    }
 
     if(isset($_POST["crearClase"])){
         if (is_file("clases\clase.php")){

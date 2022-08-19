@@ -139,7 +139,7 @@
 								<div class="col text-center">
 									<span id="spin"></span>
 									<span id='state'><input type="submit" id="agregar" class="btn btn-primary btn-lg" value="Crear Clase" onClick="validar();"></span>
-									<a href="clasesLista.php" class="btn btn-secondary btn-lg">Volver</a>
+									<a href="clases.Lista.php" class="btn btn-secondary btn-lg">Volver</a>
 								</div>
 							</div>
 						</form>

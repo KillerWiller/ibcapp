@@ -1,11 +1,11 @@
 <?php 
 
-	if (is_file("clases\curso.php")){
+	/*if (is_file("clases\curso.php")){
 		require_once("clases\curso.php");
 	}
 	else {
 		require_once("./clases/curso.php");
-	}
+	}*/
 
 	if (is_file("clases\sede.php")){
 		require_once("clases\sede.php");
@@ -14,7 +14,7 @@
 		require_once("./clases/sede.php");
 	}
     
-    $curso =  new _Curso();
+   // $curso =  new _Curso();
     $sede =  new _sede();
 ?>
 <!DOCTYPE html>
