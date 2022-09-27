@@ -28,11 +28,11 @@
 		require_once("./clases/materia.php");
 	}
 
-    if (is_file("clases\clase.php")){
-		require_once("clases\clase.php");
+    if (is_file("clases\clases.php")){
+		require_once("clases\clases.php");
 	}
 	else {
-		require_once("./clases/clase.php");
+		require_once("./clases/clases.php");
 	}
 
     $periodo=  new _Periodo();

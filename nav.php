@@ -13,7 +13,7 @@
 								Alumnos
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="addAlumno.php">Crear</a></li>
+								<li><a class="dropdown-item" href="alumnoAgrega.php">Crear</a></li>
 								<li><a class="dropdown-item" href="listaAlumnos.php">Listar</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="#">Credencial</a></li>
@@ -24,8 +24,8 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" aria-current="false" href="#" data-bs-toggle="dropdown">Clases</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="clases.Crear.php">Crear</a></li>
-								<li><a class="dropdown-item" href="clases.lista.php">Listado / Busqueda</a></li>
+								<li><a class="dropdown-item" href="clasesCrear.php">Crear</a></li>
+								<li><a class="dropdown-item" href="clasesLista.php">Listado / Busqueda</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
@@ -34,6 +34,7 @@
 								<li><a class="dropdown-item" href="alumnoLista.php">Alumnos</a></li>
 								<li><a class="dropdown-item" href="profesorLista.php">Profesores</a></li>
 								<li><a class="dropdown-item" href="sedeLista.php">Sedes</a></li>
+								<li><a class="dropdown-item" href="materiasListar.php">Materias</a></li>
 							</ul>
 								
 						</li>						

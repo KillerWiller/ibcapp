@@ -51,7 +51,7 @@
                                 <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
                                 <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path>
                                 </svg>&nbsp;Agregar Alumno</button>
-                    <table id="TablaAlumnos" class="datatable table table-sortable table-striped table-bordered" >
+                    <table id="Tabla" class="datatable table table-sortable table-striped table-bordered" >
                         <thead class="table-dark">
                             <th style="text-align: center; vertical-align: middle; ">#</th>
                             <th  style="text-align: center; vertical-align: middle; " data-column='rut' data-order="desc">Rut </th>
@@ -65,7 +65,7 @@
                         <tbody>
                             <?php 
                                 $data = json_decode($alumno->listaAlumnos());
-                                if (count($data->jAlumnos)>=2){
+                                if (count($data->jAlumnos)>0){
                                     $n=1;
                                     foreach ($data->jAlumnos as $idx => $rs) {
                                         // Output a row

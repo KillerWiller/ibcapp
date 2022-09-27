@@ -10,7 +10,8 @@
         }
 
         //METODOS
-        public function cargaMaterias(){
+        public function listaMaterias(){
+            $this->abrir();
             $qSQL = "SELECT * FROM materias ";
             $result = $this->_connection->query($qSQL);
 
@@ -23,8 +24,70 @@
             } else {
                 echo "Sin resultados";
             }
-            $this->_connection->close();
+            $this->cerrar();
             return json_encode(['JMaterias' => $materias]);
         }  
+
+        public function guardarMaterias(){
+            $qSQL = "INSERT INTO materias ";
+            $qSQL = $qSQL ."(Nombre_Materia) ";
+            $qSQL = $qSQL ." VALUES('";
+            $qSQL = $qSQL . strtoupper($this->Nombre_Materia)  ."')";
+            $this->abrir();
+            $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
+            if($insert){
+                $msg = 'success';
+            }else{
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
+        }
+
+        public function buscaMateria($Id_Materia){
+            $this->abrir();
+            $sSQL = "SELECT * FROM materias WHERE Id_Materia = $Id_Materia";
+            $result = mysqli_query($this->_connection, $sSQL);
+
+            $output[] = "";
+            if(mysqli_num_rows($result) > 0){
+                $output = array();
+                while($row = mysqli_fetch_assoc($result))
+                {
+                     $output[] = $row;
+                }
+            }
+            $this->cerrar();
+            return json_encode(['JMaterias' => $output]);  
+        }
+
+        public function editarMaterias(){
+            $qSQL = "UPDATE materias ";
+            $qSQL = $qSQL ."SET Nombre_Materia =  '" . strtoupper($this->Nombre_Materia)  ."'";
+            $qSQL = $qSQL ." WHERE Id_MAteria = " .$this->Id_Materia;
+            
+            $this->abrir();
+            $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
+            if($insert){
+                $msg = 'success';
+            }else{
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
+        }
+
+        public function borraMateria($nik){
+            $this->abrir();
+            $nik = mysqli_real_escape_string($this->_connection,(strip_tags($nik,ENT_QUOTES)));            
+            $delete = mysqli_query($this->_connection, "DELETE FROM  materias  WHERE Id_Materia ='$nik'");
+            if($delete){
+                $msg = '';
+            }else{
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
+        }        
     }
 ?>

@@ -1,4 +1,4 @@
-$('#TablaClases').DataTable({
+$('#Tabla').DataTable({
     language: {
         "aria": {
     "sortAscending": ": orden ascendente",

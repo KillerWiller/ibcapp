@@ -1,6 +1,39 @@
 <?php
 
     if(isset($_POST["filtrarClases"])){
+        if(isset($_POST['username']) && isset($_POST['password']))
+            {
+            // username and password sent from Form
+            $username=mysqli_real_escape_string($db,$_POST['username']); 
+            //Here converting passsword into MD5 encryption. 
+            $password=md5(mysqli_real_escape_string($db,$_POST['password'])); 
+
+
+            if (is_file("clases\usuario.php")){
+                require_once("clases\usuario.php");
+            }
+            else {
+                require_once("./clases/usuario.php");
+            }
+    
+            $usuario = new _Usuario();
+            $result = $usuario->BuscaUsuarioLogin($username,$password);
+
+
+            $result=mysqli_query($db,"SELECT uid FROM users WHERE username='$username' and password='$password'");
+            $count=mysqli_num_rows($result);
+            $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+            // If result matched $username and $password, table row  must be 1 row
+            if($count==1)
+            {
+                $_SESSION['login_user']=$row['uid']; //Storing user session value.
+                echo $row['uid'];
+            }
+
+        }
+    }
+
+    if(isset($_POST["filtrarClases"])){
      $anio  = $_POST["anio"];
      $periodo  = $_POST["periodo"];
      $materia  = $_POST["materia"];
@@ -313,5 +346,49 @@
             } 
     }        
 
+    if(isset($_POST["guardarMateria"])){
+        if (is_file("clases\materia.php")){
+            require_once("clases\materia.php");
+        }
+        else {
+            require_once("./clases/materia.php");
+        }
 
+        $materia = new _Materia();
+        $materia->Nombre_Materia = $_POST["nombre"];
+
+        $resul = $materia->guardarMaterias();
+        unset($_POST['']);
+        if($resul=='success'){
+            $output = array('success'  => true);
+        }
+        else{
+            $output = array('error'  => true);
+        }
+        echo json_encode($output);
+    }
+
+    if(isset($_POST["editarMateria"])){
+        if (is_file("clases\materia.php")){
+            require_once("clases\materia.php");
+        }
+        else {
+            require_once("./clases/materia.php");
+        }
+
+        $materia = new _Materia();
+        $materia->Id_Materia = $_POST["idMateria"];
+        $materia->Nombre_Materia = $_POST["nombre"];
+
+        $resul = $materia->editarMaterias();
+        unset($_POST['']);
+        $n = strlen($resul);
+        if(strlen($resul)>0){
+            $output = array('success'  => true);
+        }
+        else{
+            $output = array('error'  => true);
+        }
+        echo json_encode($output);
+    }
 ?>
