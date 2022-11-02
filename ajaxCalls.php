@@ -22,10 +22,11 @@
             $usuario = new _Usuario();
             $resul = $usuario->BuscaUsuarioLogin($username,$password);
             unset($_POST['']);
-            $data =  COUNT($resul);
+            $data=json_decode($resul);
+            $r = ($data->JUser[0]==""?0:1); //REVISO SI TRAE EL ID_USUARIO//ONE LINE If
 
             // If result matched $username and $password, table row  must be 1 row
-            if($data==1)
+            if($r==1)
             {
                 session_start(); //si existe cargo las variables en la session
                 foreach ($data->JUser as $idx => $rs) {

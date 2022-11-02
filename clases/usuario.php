@@ -22,16 +22,10 @@
                 {
                      $output[] = $row;
                 }
-                $this->cerrar();
-                return json_encode(['JUser' => $output]); 
-            }
-            else
-            {
-                echo "Usuario no existe o esta desabilitado.";                    
             }
             $this->cerrar();
-            //return json_encode(['JSedes' => $output]);  
+            return json_encode(['JUser' => $output]);  
         }
 
     }
-    ?>
+?>

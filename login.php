@@ -90,36 +90,40 @@ $(document).ready(function ajax()
     $('#FormLogin').on('submit',
 		function(event)
 		{
+			
 			event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
 			var username=$("#username").val();
 			var password=$("#password").val();
 			var dataString = 'username='+username+'&password='+password;
 			if($.trim(username).length>0 && $.trim(password).length>0)
 			{
+				
 				$.ajax({
 					url:"AJAXCalls.php",
 					method:"POST",
 					data: new FormData(document.getElementById("FormLogin")), 
-					dataType:"json",
+					//dataType:"json",
 					contentType:false,
 					cache:false,
 					processData:false,
-					beforeSend:function(datos){
+					beforeSend:function(resp){
 						console.log("Antes")
+						
 					},
-					success: function(datos){
-						console.log(datos)
-						if(datos.success)
+					success: function(resp){
+						console.log(resp)
+						if(resp.success)
 						{
-							console.log("success")
+							//console.log("success")
 						}
-						if(datos.error)
+						if(resp.error)
 						{
-							console.log("fallo")
+							//console.log("fallo")
 						}
 					},
-					error: function(datos) {
-						console.log("error")
+					error: function(resp) {
+						console.log(resp)
+						//console.log("error")
                 	},  
 				
 
