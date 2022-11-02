@@ -12,18 +12,18 @@
 
         public function BuscaUsuarioLogin($user,$pass){
             $this->abrir();
-            $sSQL ="SELECT Id_usuario, CONCAT(Nombre_Usuario,' ',Apellido_Usuario),Usuario  FROM usuarios WHERE Status = 1";
+            $sSQL ="SELECT Id_usuario, CONCAT(Nombre_Usuario,' ',Apellido_Usuario) as Nombre,Usuario  FROM usuarios WHERE usuario LIKE '$user' AND Pass_usuario LIKE '$pass' AND Status = 1";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";
             if(mysqli_num_rows($result) > 0){ // buscar si existe usuario y esta activado
                 $output = array();
-                session_start(); //si existe cargo las variables en la session
                 while($row = mysqli_fetch_assoc($result)) 
                 {
                      $output[] = $row;
                 }
-                return $output;
+                $this->cerrar();
+                return json_encode(['JUser' => $output]); 
             }
             else
             {

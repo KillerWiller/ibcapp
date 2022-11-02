@@ -1,14 +1,10 @@
 <?php
 
-    if(isset($_POST["filtrarClases"])){
+
+
+    if(isset($_POST["login"])){
         if(isset($_POST['username']) && isset($_POST['password']))
             {
-            // username and password sent from Form
-            $username=mysqli_real_escape_string($db,$_POST['username']); 
-            //Here converting passsword into MD5 encryption. 
-            $password=md5(mysqli_real_escape_string($db,$_POST['password'])); 
-
-
             if (is_file("clases\usuario.php")){
                 require_once("clases\usuario.php");
             }
@@ -16,19 +12,33 @@
                 require_once("./clases/usuario.php");
             }
     
+            // username and password sent from Form
+            $username=$_POST['username']; 
+            //Here converting passsword into MD5 encryption. 
+            $password=md5($_POST['password']); 
+
+
+
             $usuario = new _Usuario();
-            $result = $usuario->BuscaUsuarioLogin($username,$password);
+            $resul = $usuario->BuscaUsuarioLogin($username,$password);
+            unset($_POST['']);
+            $data =  COUNT($resul);
 
-
-            $result=mysqli_query($db,"SELECT uid FROM users WHERE username='$username' and password='$password'");
-            $count=mysqli_num_rows($result);
-            $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
             // If result matched $username and $password, table row  must be 1 row
-            if($count==1)
+            if($data==1)
             {
-                $_SESSION['login_user']=$row['uid']; //Storing user session value.
-                echo $row['uid'];
+                session_start(); //si existe cargo las variables en la session
+                foreach ($data->JUser as $idx => $rs) {
+                 $_SESSION['id_user']= $rs->Id_usuario;   //Storing user session value.
+                 $_SESSION['nom_user']= $rs->Nombre;
+                 $_SESSION['login_user']= $rs->Usuario;
+                }
+                $output = array('success'  => true);
             }
+            else{
+                $output = array('error'  => true);    
+            }
+            echo json_encode($output);
 
         }
     }

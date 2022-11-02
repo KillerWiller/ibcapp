@@ -1,7 +1,3 @@
-@import 'bootstrap/bootstrap';
-@import 'bootstrap/variables';
-@import 'bootstrap/mixins';
-
 $font-primary: 'Lato',Arial, sans-serif;
 $primary: #8d448b;
 
