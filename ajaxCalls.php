@@ -16,29 +16,28 @@
             $username=$_POST['username']; 
             //Here converting passsword into MD5 encryption. 
             $password=md5($_POST['password']); 
-
-
-
-            $usuario = new _Usuario();
-            $resul = $usuario->BuscaUsuarioLogin($username,$password);
             unset($_POST['']);
-            $data =  COUNT($resul);
+                $usuario = new _Usuario();
+                $resul = $usuario->BuscaUsuarioLogin($username,$password);
+                $data[] =  json_decode($resul);
 
-            // If result matched $username and $password, table row  must be 1 row
-            if($data==1)
-            {
-                session_start(); //si existe cargo las variables en la session
-                foreach ($data->JUser as $idx => $rs) {
-                 $_SESSION['id_user']= $rs->Id_usuario;   //Storing user session value.
-                 $_SESSION['nom_user']= $rs->Nombre;
-                 $_SESSION['login_user']= $rs->Usuario;
+                // If result matched $username and $password, table row  must be 1 row
+                if($data[0][0] != '') //$data[0]->JUser[0]
+                {
+                    session_start(); //si existe cargo las variables en la session
+                    foreach ($data as $idx => $rs) {
+                    $_SESSION['id_user']= $rs[0]->Id_usuario;   //Storing user session value.
+                    $_SESSION['nom_user']= $rs[0]->Nombre;
+                    $_SESSION['login_user']= $rs[0]->Usuario;
+                    }
+                    $output = true;//array('success'  => true);
                 }
-                $output = array('success'  => true);
-            }
-            else{
-                $output = array('error'  => true);    
-            }
-            echo json_encode($output);
+                else{
+                    $output = false;//array('error'  => true);    
+                }
+                
+               // echo json_encode($output);
+               echo $output;;
 
         }
     }

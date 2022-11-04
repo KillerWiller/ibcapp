@@ -24,7 +24,7 @@
                 }
             }
             $this->cerrar();
-            return json_encode(['JUser' => $output]);  
+            return json_encode($output);  
         }
 
     }

@@ -14,7 +14,20 @@ class _Menu extends _connect{
     }
 
     public function ListarMenus(){
-        $sSQL = "";
+        $this->abrir();
+        $sSQL = "SELECT * FROM menus ORDER BY Posicion ASC";
+        $result = $this->_connection->query($qSQL);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            $menus = array();
+            while($row = mysqli_fetch_array($result)) {
+                $menus [] = $row;
+            }
+        } else {
+            echo "Sin resultados";
+        }
+        $this->cerrar();
+        return  $materias;
     }
 
 }
