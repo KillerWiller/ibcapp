@@ -48,16 +48,15 @@
 	<?php include("header.php");?>
 </head>
     <body>
-		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-		<?php include("nav.php");?>
-		</nav>
-   
+		<div class="container">
+	    	<?php include("nav.php");?>
+    	</div>
 		<div id="booking" class="section">
 			<div class="section-center">
 				<div class="container" style="">
 					<div class="booking-form">
 						<div class="form-header">
-							<h2>crear curso</h2>
+							<h2>crear clases</h2>
 						</div>
 						<span id="message"></span>
 						<form id="claseForm" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -89,7 +88,7 @@
 									<div class="form-group form-floating">
 											<select id="materia" name="materia" class="form-control">
 											<option value="0">Materia</option>
-											<?php 	$data =  json_decode($materia->cargaMaterias());
+											<?php 	$data =  json_decode($materia->listaMaterias());
 													$r = count($data->JMaterias);
 													if (count($data->JMaterias)>1) {
 														foreach ($data->JMaterias as $idx => $stand) {

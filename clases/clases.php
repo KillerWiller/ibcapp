@@ -20,7 +20,7 @@
                 $qSQL = $qSQL ."Id_Materia, ";
                 $qSQL = $qSQL ."Id_Profesor, ";
                 $qSQL = $qSQL ."Id_Sede, ";
-                $qSQL = $qSQL ."Id_Curso, ";
+                $qSQL = $qSQL ."Id_Periodo, ";
                 $qSQL = $qSQL ."Anio_Clase) ";
                 $qSQL = $qSQL ." VALUES(";
                 $qSQL = $qSQL . $this->Id_Materia  .",";
@@ -74,12 +74,12 @@
         }
 
         function listaClases($cWHERE) {
-            $sWHERE = " WHERE 1 = 1 " .$cWHERE;
+            $sWHERE = " WHERE Estado_Clase = 0 " .$cWHERE;
            // if($this->Id_Sede >0){$sWHERE = " AND Id_Sede = '". $this->Id_Sede ."'";}
             $sSQL = "SELECT c.Id_Clase, c.Anio_Clase, m.Nombre_Materia,p.Nombre_Periodo, s.sede, CONCAT(t.Nombres_Profesor ,' ', t.ApePat_Profesor) as Profesor "; 
             $sSQL = $sSQL . "FROM clases c  LEFT JOIN  vw_sedes s ON c.Id_Sede = s.Id_Sede LEFT JOIN materias m ON c.Id_Materia = m.Id_Materia LEFT JOIN periodos p ON c.Id_Periodo = p.Id_Periodo LEFT JOIN profesores t ON c.Id_Profesor = t.Id_Profesor  ";
             $sSQL = $sSQL . $sWHERE;
-            $sSQL = $sSQL . " GROUP BY c.Anio_Clase, m.Nombre_Materia, s.sede ORDER BY c.Anio_Clase, s.sede, m.Nombre_Materia ASC";
+            $sSQL = $sSQL . " GROUP BY c.Anio_Clase, m.Nombre_Materia, s.sede  ORDER BY c.Anio_Clase, s.sede, m.Nombre_Materia ASC";
             $this->abrir();
             $result = mysqli_query($this->_connection, $sSQL);
 
@@ -118,5 +118,17 @@
             $qSQL .= $qSQL .$sWHERE . " 1 = 1";
         }
 
+        function borrarClase($idClase){
+            $this->abrir();
+            $nik = mysqli_real_escape_string($this->_connection,(strip_tags($idClase,ENT_QUOTES)));            
+            $delete = mysqli_query($this->_connection, "UPDATE  clases SET Estado_Clase = 1 WHERE Id_Clase ='$idClase'");
+            if($delete){
+                $msg = '';
+            }else{
+                $msg = 'error';
+            }
+            $this->cerrar();
+            return $msg;
+        }
     }
 ?>

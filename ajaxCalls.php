@@ -25,6 +25,8 @@
                 if($data[0][0] != '') //$data[0]->JUser[0]
                 {
                     session_start(); //si existe cargo las variables en la session
+                    ini_set("session.cookie_lifetime","1200"); //20 MIN
+                    ini_set("session.gc_maxlifetime","1200");
                     foreach ($data as $idx => $rs) {
                     $_SESSION['id_user']= $rs[0]->Id_usuario;   //Storing user session value.
                     $_SESSION['nom_user']= $rs[0]->Nombre;
@@ -95,10 +97,10 @@
 
     if(isset($_POST["crearClase"])){
         if (is_file("clases\clase.php")){
-            require_once("clases\clase.php");
+            require_once("clases\clases.php");
         }
         else {
-            require_once("./clases/clase.php");
+            require_once("./clases/clases.php");
         }
 
         $clase = new _Clase();

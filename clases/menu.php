@@ -13,23 +13,35 @@ class _Menu extends _connect{
         parent::__construct();
     }
 
-    public function ListarMenus(){
+    public function ListarMenusHead(){
         $this->abrir();
-        $sSQL = "SELECT * FROM menus ORDER BY Posicion ASC";
-        $result = $this->_connection->query($qSQL);
+        $sSQL = "SELECT * FROM menus WHERE Padre = 0 ORDER BY Posicion ASC";
+        $result = $this->_connection->query($sSQL);
         if ($result->num_rows > 0) {
             // output data of each row
             $menus = array();
             while($row = mysqli_fetch_array($result)) {
                 $menus [] = $row;
             }
-        } else {
-            echo "Sin resultados";
         }
         $this->cerrar();
-        return  $materias;
+        return  json_encode($menus);
     }
 
+    public function ListarSubMenus($IdMenu){
+        $this->abrir();
+        $sSQL = "SELECT * FROM menus WHERE Padre = $IdMenu ORDER BY Posicion ASC";
+        $result = $this->_connection->query($sSQL);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            $Submenus = array();
+            while($row = mysqli_fetch_array($result)) {
+                $Submenus [] = $row;
+            }
+        }
+        $this->cerrar();
+        return  json_encode($Submenus);
+    }
 }
 
 ?>

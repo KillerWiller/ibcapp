@@ -27,5 +27,22 @@
             return json_encode($output);  
         }
 
+        public function ListaUsuarios(){
+            $this->abrir();
+            $sSQL = "SELECT * FROM usuarios ";
+            $result = mysqli_query($this->_connection, $sSQL);
+
+            $output[] = "";
+            if(mysqli_num_rows($result) > 0){
+                $output = array();
+                while($row = mysqli_fetch_assoc($result))
+                {
+                     $output[] = $row;
+                }
+            }
+            $this->cerrar();
+            return json_encode(['JSusuarios' => $output]);  
+        }
+
     }
 ?>
