@@ -95,6 +95,33 @@
 
     }
 
+    if(isset($_POST["editaClase"])){
+        if (is_file("clases\clase.php")){
+            require_once("clases\clases.php");
+        }
+        else {
+            require_once("./clases/clases.php");
+        }
+
+        $clase = new _Clase();
+        $clase->id_Clase = $_POST["IdClase"];
+        $clase->Id_Materia = $_POST["materia"];
+        $clase->Id_Profesor = $_POST["profesor"];
+        $clase->Id_Sede = $_POST["sede"];
+        $clase->Id_Periodo = $_POST["periodo"];
+        $clase->Anio_Clase = $_POST["anio"];
+
+        $resul = $clase->editaClase($clase->id_Clase);
+        unset($_POST['']);
+        if($resul==1){
+            $output =true;
+        }
+        else{
+            $output = false;
+        }
+        echo $output;
+    }
+
     if(isset($_POST["crearClase"])){
         if (is_file("clases\clase.php")){
             require_once("clases\clases.php");
@@ -107,18 +134,18 @@
         $clase->Id_Materia = $_POST["materia"];
         $clase->Id_Profesor = $_POST["profesor"];
         $clase->Id_Sede = $_POST["sede"];
-        $clase->Id_Curso = $_POST["curso"];
+        $clase->Id_Periodo = $_POST["periodo"];
         $clase->Anio_Clase = $_POST["anio"];
 
         $resul = $clase->guardarClase();
         unset($_POST['']);
-        if(strlen($resul)==0){
-            $output = array('success'  => true);
+        if($resul==1){
+            $output =true;
         }
         else{
-            $output = array('error'  => true);
+            $output = false;
         }
-        echo json_encode($output);
+        echo $output;
     }
 
     if(isset($_POST["guardarSede"])){
@@ -317,7 +344,7 @@
         $clase->Id_Materia = $_POST["materia"];
         $clase->Id_Profesor = $_POST["profesor"];
         $clase->Id_Sede = $_POST["sede"];
-        $clase->Id_Curso = $_POST["curso"];
+        $clase->Id_Periodo = $_POST["curso"];
         $resul = $alumno->buscarClases();
         unset($_POST['']);
 

@@ -40,6 +40,8 @@
     $profesor = new _Profesor();
 	$materia = new _Materia();
     $clase = new _Clase();
+
+    $RSclase =  json_decode($clase->buscaClase($_GET["nik"]));
 ?>
 
 <!DOCTYPE html>
@@ -56,22 +58,23 @@
 				<div class="container" style="">
 					<div class="booking-form">
 						<div class="form-header">
-							<h2>crear clases</h2>
+							<h2>editar clases</h2>
 						</div>
 						<span id="message"></span>
 						<form id="claseForm" method="POST" enctype="multipart/form-data" autocomplete="off">
 							<div class="row">
 								<div class="col-sm-3">
-									<input type="hidden" name="crearClase" id="crearClase" value='1'>
+									<input type="hidden" name="editaClase" id="editaClase" value='<?php echo $_GET["nik"]; ?>'>
+									<input type="hidden" name="IdClase" id="IdClase" value='<?php echo $_GET["nik"]; ?>'>
 									<div class="form-group form-floating">
-										<input type="number" name="anio" class="form-control" id="anio" value= '<?php echo date("Y"); ?>' width="48"  required>
+										<input type="number" name="anio" class="form-control" id="anio" value= '<?php echo $RSclase->JSclase[0]->Anio_Clase; ?>' width="48"  required>
 										<label for="floatingPassword">Año</label>
 									</div>
 								</div>								
 								<div class="col-sm-6">
 									<div class="form-group form-floating">
 										<select id="periodo" name="periodo" class="form-control">
-										<option value="0">Periodo</option>
+										<option value='<?php echo $RSclase->JSclase[0]->Id_Periodo; ?>''><?php echo $RSclase->JSclase[0]->Nombre_Periodo; ?></option>
 										<?php 	$data =  json_decode($periodo->cargaPeriodos());
 												$r = count($data->JPeriodos);
 												if (count($data->JPeriodos)>1) {
@@ -87,7 +90,7 @@
 								<div class="col-sm-6">
 									<div class="form-group form-floating">
 											<select id="materia" name="materia" class="form-control">
-											<option value="0">Materia</option>
+											<option value='<?php echo $RSclase->JSclase[0]->Id_Materia; ?>''><?php echo $RSclase->JSclase[0]->Nombre_Materia; ?></option>
 											<?php 	$data =  json_decode($materia->listaMaterias());
 													$r = count($data->JMaterias);
 													if (count($data->JMaterias)>1) {
@@ -103,7 +106,7 @@
 								<div class="col-sm-6">
 									<div class="form-group form-floating">
 											<select id="profesor" name="profesor" class="form-control">
-											<option value="0">Profesor</option>
+											<option value='<?php echo $RSclase->JSclase[0]->Id_Profesor; ?>''><?php echo strtoupper($RSclase->JSclase[0]->profesor); ?></option>
 											<?php 	$data =  json_decode($profesor->listaProfesores());
 													$r = count($data->JProfesores);
 													if (count($data->JProfesores)>0) {
@@ -120,7 +123,7 @@
 								<div class="col-sm-10">
 									<div class="form-group form-floating">
 											<select id="sede" name="sede" class="form-control">
-											<option value="0">Sede</option>
+											<option value='<?php echo $RSclase->JSclase[0]->Id_Sede; ?>''><?php echo strtoupper($RSclase->JSclase[0]->sede); ?></option>
 											<?php 	$data =  json_decode($sede->listaSedes());
 													$r = count($data->JSedes);
 													if (count($data->JSedes)>0) {
