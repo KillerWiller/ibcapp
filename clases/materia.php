@@ -79,15 +79,31 @@
 
         public function borraMateria($nik){
             $this->abrir();
-            $nik = mysqli_real_escape_string($this->_connection,(strip_tags($nik,ENT_QUOTES)));            
-            $delete = mysqli_query($this->_connection, "DELETE FROM  materias  WHERE Id_Materia ='$nik'");
-            if($delete){
-                $msg = '';
-            }else{
-                $msg = 'error';
+            $conta = $this->validaMateria($nik);
+            if ($conta==0){
+                $nik = mysqli_real_escape_string($this->_connection,(strip_tags($nik,ENT_QUOTES)));            
+                $delete = mysqli_query($this->_connection, "DELETE FROM  materias  WHERE Id_Materia ='$nik'");
+                if($delete){
+                    $msg = '';
+                }else{
+                    $msg = 'error';
+                }
+            }
+            else{
+                $msg = "Existen $conta clases  con esta materia, verifique que no existan clases realcionadas";
             }
             $this->cerrar();
             return $msg;
         }        
+
+        function validaMateria($Id_Materia){
+            $sSQL = "SELECT Id_Clase as clases FROM clases WHERE Id_Materia = $Id_Materia";
+            if ($result = mysqli_query($this->_connection, $sSQL)) {
+               // echo "Returned rows are: " . ;mysqli_free_result($result);
+                // Free result set
+                $output  = mysqli_num_rows($result);
+              }
+            return $output;  
+        }
     }
 ?>

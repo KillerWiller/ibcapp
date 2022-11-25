@@ -18,10 +18,9 @@
 	<?php include("header.php");?>
 </head>
     <body>
-		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-		<?php include("nav.php");?>
-		</nav>
-   
+	<div class="container">
+	    	<?php include("nav.php");?>
+    	</div>
 		<div id="booking" class="section">
 			<div class="section-center">
 				<div class="container" style="">

@@ -14,11 +14,14 @@
 <html lang="es">
 	<head>
 	<?php include("header.php");?>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 </head>
     <body>
-		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-		<?php include("nav.php");?>
-		</nav>
+	<div class="container">
+	    	<?php include("nav.php");?>
+    	</div>
    
 		<div id="booking" class="section">
 			<div class="section-center">
