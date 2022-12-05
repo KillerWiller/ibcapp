@@ -7,7 +7,7 @@
 		require_once("./clases/materia.php");
 	}
 
-    $sede=  new _Materia();
+    $Materia=  new _Materia();
 ?>
 
 <!DOCTYPE html>

@@ -18,18 +18,22 @@
 	<?php include("header.php");?>
 </head>
     <body>
-		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-		<?php include("nav.php");?>
-		</nav>
+            <div class="container">
+                <?php include("nav.php");?>
+            </div>
+            <div class="container-sm" align-items: center;">
+                <div class="container-sm" style="margin-top:5%; align-items: center;">
+                    <div class="form-header">
+                        <h2>tabla de profesores</h2>
+                    </div>
+                </div>
+            </div>
    
 		<div id="booking" class="section">
 			<div class="section-center">
 				<div class="container" style="">
 					<div class="row">
 						<div class="booking-form">
-								<div class="form-header">
-									<h2>editar profesor</h2>
-								</div>
 							<span id="message"></span>
                             <?php foreach ($RSprofesor->jProfesores as $idx => $stand) { ?>
                                 <form id="profesorForm" method="POST" enctype="multipart/form-data">
@@ -44,9 +48,7 @@
                                         </div>	
 
                                         <div class="col-sm-6">
-                                            <div class="form-group form-floating">
-                                                <label for="rut" style="color:#C0C0C0 ">ej: 123456789</label>
-                                            </div>
+                                            <label for="rut" style="color:#C0C0C0 ">ej: 123456789</label>
                                         </div>
 
                                         <div class="col-sm-7">
@@ -110,47 +112,52 @@
 
 
 
-        
-        $('#profesorForm').on('submit', 
+ <script>       
+	$(document).ready(function(){
+		
+		$('#profesorForm').on('submit', 
             function(event){
-				event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
-                $.ajax(
+			event.preventDefault(); //NO PERMITE QUE LA PAG SE ACTUALICE SOLA
+			$.ajax(
+			{
+				//ESTE AJAX ES SIN JSON
+				url:"AJAXCalls.php",
+				method:"POST",
+				data: new FormData(document.getElementById("profesorForm")), 
+				//dataType:"json",
+				contentType:false,
+				cache:false,
+				processData:false,
+				beforeSend:function(datos){
+					console.log("antes")
+					$('#message').css('display','block')
+					$('#state').html("");
+					spin = '<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div>';
+					$('#state').html(spin);
+				},
+				success:function(datos)
 				{
-					url:"AJAXCalls.php",
-					method:"POST",
-					data: new FormData(document.getElementById("profesorForm")), 
-					dataType:"json",
-					contentType:false,
-					cache:false,
-					processData:false,
-					beforeSend:function(datos){
-						$('#message').css('display','block')
-						$('#state').html("");
-						spin = '<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div>';
-						$('#state').html(spin);
-					},
-					success:function(datos)
+					var msg = "";
+					if(datos) 
 					{
-						var msg = "";
-						if(datos.success) 
-						{
-							msg = "<div class='alert alert-succsess alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Exelente!</strong> Datos almacenados con exito.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-							$("#profesorForm")[0].reset();
-						}
-						if(datos.error)
-						{
-							 msg ="<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong> Ocurrio un error al guardar los datos.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-						}
-						$('#state').html("<input type='submit' name='add' class='btn btn-primary btn-lg' value='Guardar'>");
-						$('#message').html(msg);
-					},
+						msg = "<div class='alert alert-succsess alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Exelente!</strong> Datos almacenados con exito.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+						$("#profesorForm")[0].reset(); //LIMPIAR EL FORMULARIO
+					}
+					else
+					{
+						msg ="<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong>Esta clase ya existe.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+					}
+					$('#state').html("<input type='submit' name='add' class='btn btn-primary btn-lg' value='Guardar'>");
+					$('#message').html(msg);
+				},
+				error: function(datos) {
+						console.log(datos);
+                },  
+			});
 
-					error: function(datos) {
-						$('#message').html("<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong> Ocurrio un error desconocido al guardar los datos.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>");
-                	},  
-            });
-		});
-    });
+        });
+	});
+
 
     function checkRut(rut) {
         // Despejar Puntos

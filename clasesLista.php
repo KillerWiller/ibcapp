@@ -59,15 +59,13 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 </head>
     <body>
-         <div class="container">
-	    	<?php include("nav.php");?>
-    	</div>
+            <div class="container">
+                <?php include("nav.php");?>
+            </div>
             <div class="container-sm" align-items: center;">
                 <div class="form-header">
-                    <h2>clases</h2>
+                    <h2>clases</h2> 
                 </div>
-
-               
             </div>
             <hr>
             <div class="container-sm" style="width: 50%;">

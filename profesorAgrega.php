@@ -15,18 +15,22 @@
 	<?php include("header.php");?>
 </head>
     <body>
-		<nav class="navbar navbar-expand-lg  navbar-dark bg-dark sticky-top">
-		<?php include("nav.php");?>
-		</nav>
+	<div class="container">
+                <?php include("nav.php");?>
+            </div>
+            <div class="container-sm" align-items: center;">
+                <div class="container-sm" style="margin-top:5%; align-items: center;">
+                    <div class="form-header">
+                        <h2>agregar profesor</h2>
+                    </div>
+                </div>
+            </div>
    
 		<div id="booking" class="section">
 			<div class="section-center">
 				<div class="container" style="">
 					<div class="row">
 						<div class="booking-form">
-								<div class="form-header">
-									<h2>agregar profesor</h2>
-								</div>
 							<span id="message"></span>
 							<form id="profesorForm" method="POST" enctype="multipart/form-data">
 								<div class="row">	
@@ -40,9 +44,9 @@
 									</div>	
 
 									<div class="col-sm-6">
-										<div class="form-group form-floating">
+
 											<label for="rut" style="color:#C0C0C0 ">ej: 123456789</label>
-										</div>
+
 									</div>
 
 									<div class="col-sm-7">

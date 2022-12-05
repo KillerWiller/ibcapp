@@ -84,7 +84,7 @@
 
         public function buscaProfesor($Id_Profesor){
             $this->abrir();
-            $sSQL = "SELECT * FROM profesor WHERE Id_Profesor = $Id_Profesor";
+            $sSQL = "SELECT * FROM profesores WHERE Id_Profesor = $Id_Profesor";
             $result = mysqli_query($this->_connection, $sSQL);
 
             $output[] = "";
@@ -100,7 +100,7 @@
         }
 
         public function editarProfesor(){
-            $qSQL = "UPDATE profesor ";
+            $qSQL = "UPDATE profesores ";
             $qSQL = $qSQL ." SET ";
             $qSQL = $qSQL ."Nombres_Profesor = '$this->Nombres_Profesor' , ";
             $qSQL = $qSQL ."ApePat_Profesor = '$this->ApePat_Profesor', ";
@@ -108,7 +108,7 @@
             $qSQL = $qSQL ."Telefono_Profesor = '$this->Telefono_Profesor', ";
             $qSQL = $qSQL ."Email_Profesor = '$this->Email_Profesor', ";
             $qSQL = $qSQL ."Direccion_Profesor = '$this->Direccion_Profesor'";
-            $qSQL = $qSQL ."WHERE Id_Profesor =  = '$this->Id_Profesor'";
+            $qSQL = $qSQL ."WHERE Id_Profesor =  '$this->Id_Profesor'";
         
             $this->abrir();
             $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());

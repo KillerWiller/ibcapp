@@ -30,26 +30,27 @@
 									<h2>Editar materia</h2>
 								</div>
 							<span id="message"></span>
-                            <?php foreach ($RSmateria->JMaterias as $idx => $stand) ?>
-							<form id="materiaForm" method="POST" enctype="multipart/form-data">
-								<div class="row">	
-									<div class="col-sm-10">
-										<input type="hidden" name="editarMateria" id="editarMateria" value='1'>
-										<input type="hidden" name="idMateria" id="idMateria" value="<?php echo $stand->Id_Materia; ?>">
-										<div class="form-group form-floating">
-											<input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" value="<?php echo $stand->Nombre_Materia; ?>" required>
-											<label for="floatingPassword">Nombre</label>
+                            <?php foreach ($RSmateria->JMaterias as $idx => $stand) {?>
+								<form id="materiaForm" method="POST" enctype="multipart/form-data">
+									<div class="row">	
+										<div class="col-sm-10">
+											<input type="hidden" name="editarMateria" id="editarMateria" value='1'>
+											<input type="hidden" name="idMateria" id="idMateria" value="<?php echo $stand->Id_Materia; ?>">
+											<div class="form-group form-floating">
+												<input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" value="<?php echo $stand->Nombre_Materia; ?>" required>
+												<label for="floatingPassword">Nombre</label>
+											</div>
+										</div>	
+
+
+									<div class="row g-2">
+										<div class="col text-center">
+											<span id='state'><input type="submit" name="add" class="btn btn-primary btn-lg" value="Guardar"></span>
+											<a href="materiasListar.php" class="btn btn-secondary btn-lg">Volver</a>
 										</div>
-									</div>	
-
-
-								<div class="row g-2">
-									<div class="col text-center">
-										<span id='state'><input type="submit" name="add" class="btn btn-primary btn-lg" value="Guardar"></span>
-										<a href="materiasListar.php" class="btn btn-secondary btn-lg">Volver</a>
-									</div>
-								</div> 								
-							</form>
+									</div> 								
+								</form>
+							<?php } ?>
 						</div>
 					</div>
 				</div>		
