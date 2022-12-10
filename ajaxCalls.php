@@ -1,29 +1,55 @@
 <?php
 
 
-if(isset($_POST["guardarPerfil"])){
-    if (is_file("clases\clase.php")){
-        require_once("clases\perfiles.php");
-    }
-    else {
-        require_once("./clases/perfiles.php");
+    if(isset($_POST["editarPerfil"])){
+        if (is_file("clases\perfiles.php")){
+            require_once("clases\perfiles.php");
+        }
+        else {
+            require_once("./clases/perfiles.php");
+        }
+
+        $perfil = new _Perfiles();
+        $perfil->Id_Perfil = $_POST["IdPerfil"];
+        $perfil->Cod_Perfil = $_POST["codigo"];
+        $perfil->Nom_Perfil = $_POST["nombre"];
+        $perfil->Desc_Perfil = $_POST["descripcion"];
+
+
+        $resul = $perfil->EditaPerfil($perfil->Id_Perfil);
+        unset($_POST['']);
+        if($resul==1){
+            $output = array('success'  => true);
+        }
+        else{
+            $output = array('error'  => true);
+        }
+        echo json_encode($output);
     }
 
-    $perfil = new _Perfiles();
-    $perfil->Cod_Perfil = $_POST["codigo"];
-    $perfil->Nom_Perfil = $_POST["nombre"];
-    $perfil->Desc_Perfil = $_POST["descripcion"];
+    if(isset($_POST["guardarPerfil"])){
+        if (is_file("clases\clase.php")){
+            require_once("clases\perfiles.php");
+        }
+        else {
+            require_once("./clases/perfiles.php");
+        }
 
-    $resul = $perfil->CrearPerfil();
-    unset($_POST['']);
-    if($resul==1){
-        $output = array('success'  => true);
+        $perfil = new _Perfiles();
+        $perfil->Cod_Perfil = $_POST["codigo"];
+        $perfil->Nom_Perfil = $_POST["nombre"];
+        $perfil->Desc_Perfil = $_POST["descripcion"];
+
+        $resul = $perfil->CrearPerfil();
+        unset($_POST['']);
+        if($resul==1){
+            $output = array('success'  => true);
+        }
+        else{
+            $output = array('error'  => true);
+        }
+        echo json_encode($output);
     }
-    else{
-        $output = array('error'  => true);
-    }
-    echo json_encode($output);
-}
 
     if(isset($_POST["login"])){
         if(isset($_POST['username']) && isset($_POST['password']))

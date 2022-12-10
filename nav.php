@@ -39,7 +39,12 @@
 							if (is_countable($subMenu) && count($subMenu)>0){
 								foreach ($subMenu as $idx => $rs2) {
 									//SUBMENUS
-									echo "<li><a class='dropdown-item' href='".$rs2->Link_Menu."'>".$rs2->Nombre_Menu."</a></li>";
+									if($rs2->Nombre_Menu == "barra"){ //ES UNA BARRA SEPARADORA
+										echo "<div class='dropdown-divider'></div>";
+									}
+									else {
+										echo "<li><a class='dropdown-item' href='".$rs2->Link_Menu."'>".$rs2->Nombre_Menu."</a></li>";
+									}
 								}
 							echo "</ul>";
 							}

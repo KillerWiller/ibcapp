@@ -77,8 +77,24 @@ class _Perfiles extends _connect{
         return json_encode(['JPerfil' => $output]); 
     }
 
-    public function EditarPerfil(){
-
+    public function EditaPerfil(){
+        $qSQL = "UPDATE perfiles ";
+        $qSQL = $qSQL ." SET ";
+        $qSQL = $qSQL ."Cod_Perfil = '$this->Cod_Perfil' , ";
+        $qSQL = $qSQL ."Nombre_Perfil = '$this->Nom_Perfil', ";
+        $qSQL = $qSQL ."Desc_Perfil = '$this->Desc_Perfil' ";
+        $qSQL = $qSQL ."WHERE Id_Perfil =  $this->Id_Perfil";
+    
+        $this->abrir();
+        $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
+        if($insert){
+            $msg = 1;
+        }else{
+            $msg = 0;
+        }
+        $this->cerrar();
+        return $msg; 
     }
+    
 }
 ?>

@@ -38,8 +38,8 @@
                                 <div class="row">	
                                     <div class="col-sm-4">
                                         <input type="hidden" name="editarPerfil" id="editarPerfil" value='1'>
+                                        <input type="hidden" name="IdPerfil" id="IdPerfil" value='<?php echo $_GET["nik"]; ?>'>
                                         <div class="form-group form-floating">
-                                            <input type="text" name="codigo" class="form-control" id="idPerfil" placeholder="idPerfil" value="<?php echo $RSperfil->JPerfil[0]->Id_Perfil ?>" required>
                                             <input type="text" name="codigo" class="form-control" id="codigo" placeholder="Código" value="<?php echo $RSperfil->JPerfil[0]->Cod_Perfil ?>" required>
                                             <label for="floatingPassword">Código</label>
                                         </div>
@@ -49,7 +49,7 @@
 								<div class="row">	
                                     <div class="col-sm-10">
                                         <div class="form-group form-floating">
-                                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" value="<?php echo $RSperfil->JPerfil[0]->Nom_Perfil ?>" required>
+                                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" value="<?php echo strtoupper($RSperfil->JPerfil[0]->Nombre_Perfil); ?>" required>
                                             <label for="floatingPassword">Nombre</label>
                                         </div>
                                     </div>	
