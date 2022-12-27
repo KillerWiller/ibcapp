@@ -28,6 +28,48 @@ class _Perfiles extends _connect{
         return $msg;
         $this->cerrar();
     }
+    public function HabilitarAccesos($idPerfil,$IdMenu,$Estado){
+        // BORRAR TODOS LOS ACCESOS DE
+    }
+
+    public function CrearMenusPerfil($IdPerfil){
+        $this->abrir();
+        $nik = mysqli_real_escape_string($this->_connection,(strip_tags($nik,ENT_QUOTES)));            
+        $delete = mysqli_query($this->_connection, "DELETE FROM perfiles_menus WHERE Id_Perfil  = $IdPerfil");
+        if($delete){
+            $msg = '';
+        }else{
+            $msg = 'error';
+        }
+        // $this->cerrar();
+
+        // $this->abrir();
+        $qSQL = "SELECT * FROM menus ";
+        $result = $this->_connection->query($qSQL);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            $menus = array();
+            while($row = mysqli_fetch_array($result)) {
+                //*********************** */
+                $qSQL = "INSERT INTO perfiles_menus ";
+                $qSQL = $qSQL ."(Id_Perfil ,Id_Menu) ";
+                $qSQL = $qSQL ." VALUES(";
+                $qSQL = $qSQL . $IdPerfil  .",";
+                $qSQL = $qSQL . $row["Id_Menu"]  .")";
+                $this->abrir();
+                $insert = mysqli_query($this->_connection,$qSQL) or die(mysqli_error());
+                if($insert){
+                    $msg =  $msg ."";
+                }else{
+                    $msg = $msg ."error";
+                }
+                $this->cerrar();
+                //*********************** */
+                
+            }
+        }
+        return $msg;
+    }
 
     public  function ListaPerfiles(){
         $this->abrir();
@@ -93,6 +135,7 @@ class _Perfiles extends _connect{
             $msg = 0;
         }
         $this->cerrar();
+        $this->CrearMenusPerfil($this->Id_Perfil);
         return $msg; 
     }
     

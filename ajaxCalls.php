@@ -1,6 +1,30 @@
 <?php
 
 
+    if(isset($_POST["GuardarMenuPerfil"])){
+        if (is_file("clases\menu.php")){
+            require_once("clases\menu.php");
+        }
+        else {
+            require_once("./clases/menu.php");
+        }
+
+        $menu = new _Menu();
+        $IdPerfil = $_POST["idPerfil"];
+        $IdMenu = $_POST["IdMenu"];
+        $Estado = $_POST["Estado"];
+
+        $resul = $menu->CrearAccesos($IdPerfil,$IdMenu);
+        unset($_POST['']);
+        if($resul==1){
+            $output = True;
+        }
+        else{
+            $output = False;
+        }
+        echo $output;
+    }
+
     if(isset($_POST["editarPerfil"])){
         if (is_file("clases\perfiles.php")){
             require_once("clases\perfiles.php");
@@ -28,7 +52,7 @@
     }
 
     if(isset($_POST["guardarPerfil"])){
-        if (is_file("clases\clase.php")){
+        if (is_file("clases\perfiles.php")){
             require_once("clases\perfiles.php");
         }
         else {
