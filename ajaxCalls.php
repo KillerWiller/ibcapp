@@ -1,4 +1,26 @@
 <?php
+    ///RESETEO DE PERFILES Y CREACION DE MENUS
+    if(isset($_GET["aksi"]) && isset($_GET["nik"]) && isset($_GET["nombre"] )){
+        if (is_file("clases\menu.php")){
+            require_once("clases\menu.php");
+        }
+        else {
+            require_once("./clases/menu.php");
+        }
+
+        if ($_GET["aksi"]=='reset'){
+            $IdPerfil = $_GET["nik"];
+            $nomPerfil = $_GET["nombre"];
+            $menu = new _Menu();
+            if($menu->ResetAccesos($IdPerfil)){
+                header("Location: perfilMenus.php?nik=$IdPerfil&nombre=$nomPerfil");
+            }
+            else{
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg><strong>Atencion!</strong> Ocurrio un error desconocido al guardar los datos.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+            }
+        }
+        
+    }
 
 
     if(isset($_POST["GuardarMenuPerfil"])){

@@ -24,7 +24,7 @@
 
 	</head>
 	<body>
-	<section class="ftco-section">
+	<!-- <section class="ftco-section"> -->
 		<div class="container">
 			<div class="row justify-content-center" >
 				<div class="col-md-6 text-center mb-5" >
@@ -65,7 +65,7 @@
 				</form>
 	        </div>
 		</div>
-	</section>
+	<!-- </section> -->
 
 
 

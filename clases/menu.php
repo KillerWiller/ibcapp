@@ -14,6 +14,17 @@ class _Menu extends _connect{
     }
 
 
+    public function ResetAccesos($IdPerfil){
+        $this->abrir();
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+        //CALL sp_Crea_Accesos($IdPerfil)
+        $result = $this->_connection->query('CALL sp_Crea_Accesos('.$IdPerfil.')');
+        $this->cerrar();
+        return $result;
+
+    }
+
     public function ListarMenusHead(){
         $this->abrir();
         $sSQL = "SELECT * FROM menus WHERE Padre = 0 ORDER BY Posicion ASC";

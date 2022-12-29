@@ -99,8 +99,8 @@ $IdPerfil =  $_GET["nik"];
                         <div class="col text-center"></div>
                         <div class="col text-center"></div>
                         <div class="col text-center">
-                            <span id='state'><input type="buton" name="add" class="btn btn-primary btn-lg" value="Guardar" onclick="alert('click')"></span>
-                            <a href="perfilLista.php" class="btn btn-secondary btn-lg">Volver</a>
+                            <span id='state'><a href="ajaxCalls.php?aksi=reset&nik=<?php echo $IdPerfil .'&nombre='.$_GET["nombre"];?> " title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de ?\')" class="btn btn-warning btn-sm">Resetar accessos</a></span>
+                            <a href="perfilLista.php" class="btn btn-secondary btn-sm">Volver</a>
                         </div>
                     </div>  
                     <span id="message" name="message"></span>
